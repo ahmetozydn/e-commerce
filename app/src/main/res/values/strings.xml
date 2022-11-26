@@ -1,5 +1,16 @@
 <resources>
     <string name="app_name">ecommerceapp</string>
-    <string name="login">LOGIN</string>
+    <string name="login">Log In</string>
     <string name="email">e-mail</string>
+    <string name="e_mail">e-mail</string>
+    <string name="signup">sign up</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="signinanonymously">Sign In Anonymously</string>
+    <string name="signingoogle">Sign In Google</string>
+    <string name="or">OR</string>
+    <string name="home">Home</string>
+    <string name="favorite">Favorites</string>
+    <string name="shopping">Shopping</string>
+    <string name="profile">Profile</string>
 </resources>
