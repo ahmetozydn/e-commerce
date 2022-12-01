@@ -1,12 +1,21 @@
 package com.ahmetozaydin.ecommerceapp.fragment
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.annotation.UiThread
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.ahmetozaydin.ecommerceapp.adapter.CategoryAdapter
+import com.ahmetozaydin.ecommerceapp.adapter.ProductsAdapter
 import com.ahmetozaydin.ecommerceapp.databinding.FragmentHomeBinding
-import com.ahmetozaydin.ecommerceapp.model.Products
+import com.ahmetozaydin.ecommerceapp.model.BaseClass
+import com.ahmetozaydin.ecommerceapp.model.Product
 import com.ahmetozaydin.ecommerceapp.service.ProductsAPI
 import com.ahmetozaydin.ecommerceapp.view.MainActivity.Companion.BASE_URL
 import retrofit2.Call
@@ -16,24 +25,31 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 
-class HomeFragment : Fragment() {
+class   HomeFragment : Fragment(), ProductsAdapter.Listener, CategoryAdapter.Listener{
     private var isDone : Boolean = false
     private lateinit var binding: FragmentHomeBinding
-   private var products = ArrayList<Products>()
-
+   private var products = ArrayList<Product>()
+    private var productsAdapter: ProductsAdapter? = null
+    private val imageViews = ArrayList<Drawable>()
+    private var categoryAdapter: CategoryAdapter? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(layoutInflater)
+
+        val layoutManager = GridLayoutManager(activity,2)// oluyorsa layout managerları birleştir.
+        binding.recyclerView.layoutManager = layoutManager
+
+        fetchData()
+
         return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.btn.setOnClickListener {
-            fetchData()
-        }
+
     }
     private fun fetchData(){
 
@@ -42,32 +58,76 @@ class HomeFragment : Fragment() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         val service = retrofit.create(ProductsAPI::class.java)
-        val call = service.getData()
-        call.enqueue(object : Callback<ArrayList<Products>> {
-            override fun onFailure(call: Call<ArrayList<Products>>, t: Throwable) {
-                println("error")
-            }
-            override fun onResponse(
-                call: Call<ArrayList<Products>>,
-                response: Response<ArrayList<Products>>
-            ) {
-
-                println("onResponse")
-                response.body()?.let {
-                            println("count18")
-                            if(!isDone){
-                                it.forEach {
-                                    products.add(it)
-                                }
-                                isDone = true
-                            }
-
+        activity?.runOnUiThread(Runnable{
+            val call = service.getData()
+            call.enqueue(object : Callback<BaseClass> {
+                override fun onFailure(call: Call<BaseClass>, t: Throwable) {
+                    println("error")
+                    t.printStackTrace()
+                    println(t)
                 }
-            }
+                override fun onResponse(
+                    call: Call<BaseClass>,
+                    response: Response<BaseClass>
+                ) {
+                    response.body()?.let {
+                        if(!isDone){
+                            println("if clause worked")
+                            isDone = true
+                            it.products?.forEach {
+                                products.add(it)
+                            }
+                        }
+                    }
+                    productsAdapter = context?.let { ProductsAdapter(products, imageViews , it,
+                        requireActivity(),this@HomeFragment) }
+                    binding.recyclerView.adapter = productsAdapter
+                    val horizontalLayoutManager : RecyclerView.LayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL,false)
+                    binding.recyclerViewCategories.layoutManager = horizontalLayoutManager
+                    val categories = ArrayList<String>()
+                    products.forEach {
+                        if(!categories.contains(it.category) || categories.size == 0){
+                            it.category?.let { it1 -> categories.add(it1) }
+                        }
+                    }
+                    print(categories)
+                    categoryAdapter = context?.let { CategoryAdapter(products,categories, it) }
+                    binding.recyclerViewCategories.adapter = categoryAdapter
+                }
+            })
         })
+    }
+   /* fun loadImageFromWeb(url: ArrayList<Product>?) {
+
+         try {
+            url?.forEach {
+                val `is`: InputStream = URL(it.image?.get(1)).content as InputStream
+                imageViews.add(Drawable.createFromStream(`is`, "src name"))
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }*/
+
+    override fun onItemClick(products: Product) {
+        Toast.makeText(activity, "item is clicked", Toast.LENGTH_SHORT).show()
+    }
+    override fun onResume() {
+        super.onResume()
+        binding.recyclerViewCategories.adapter = categoryAdapter;
+
+    }
+    override fun categoryButtonClicked(
+        products: ArrayList<Product>,
+        holder: CategoryAdapter.PlaceHolder,
+        position: Int
+    ) {
         products.forEach {
-            println(it.id)
+            if(it.category == products[position].category){
+                println(it.category)
+            }
         }
     }
+
 
 }

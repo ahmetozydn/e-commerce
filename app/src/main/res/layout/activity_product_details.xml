@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="1dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="6dp"
+    android:fillViewport="false"
+    android:measureAllChildren="false"
+    android:scrollbars="vertical"
+    >
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_alignParentEnd="true"
+            android:button="@drawable/selector_favorites"
+            app:useMaterialThemeColors="false"
+            />
+
+        <ImageView
+            android:id="@+id/imageOfProduct"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginBottom="2dp"
+            android:contentDescription="@string/app_name"
+            android:padding="2dp" />
+
+        <!-- Text View to display Course Name -->
+        <TextView
+            android:id="@+id/textViewProductName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/imageOfProduct"
+            android:layout_marginTop="6dp"
+            android:fontFamily="sans-serif"
+            android:textStyle="bold"
+            android:lines="2"
+            android:maxLines="2"
+            android:paddingStart="1dp"
+            android:paddingEnd="1dp"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+        <!-- Text VIew to display Course Rating -->
+        <!-- Image used in present in drawable folder -->
+        <TextView
+            android:id="@+id/textDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewProductName"
+            android:paddingStart="1dp"
+            android:paddingEnd="1dp"
+            android:text="@string/description"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textViewProductDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textDescription"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            android:drawablePadding="2dp"
+            android:fontFamily="sans-serif"
+            android:paddingStart="1dp"
+            android:paddingEnd="1dp"
+            android:textSize="12sp" />
+
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewProductDescription"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="6dp"
+            android:clickable="false"
+            android:progressTint="@color/orange"
+            android:scaleX="0.5"
+            android:scaleY="0.5"
+            android:stepSize="0.2"
+            android:transformPivotX="10dp"
+            android:transformPivotY="10dp">
+
+        </RatingBar>
+
+        <TextView
+            android:id="@+id/textViewProductFeatures"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ratingBar"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            android:drawablePadding="2dp"
+            android:fontFamily="sans-serif"
+            android:paddingStart="1dp"
+            android:paddingEnd="1dp"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/textViewProductPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewProductFeatures"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            android:drawablePadding="2dp"
+            android:fontFamily="sans-serif"
+            android:paddingStart="1dp"
+            android:paddingEnd="1dp"
+            android:textAlignment="center"
+            android:textColor="@color/green"
+            android:textSize="12sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonAddToShopping"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewProductPrice"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            android:background="@drawable/ripple"
+            android:backgroundTint="@color/orange"
+            android:fontFamily="sans-serif"
+            android:paddingLeft="15dp"
+            android:paddingTop="3dp"
+            android:paddingRight="15dp"
+            android:paddingBottom="10dp"
+            android:text="@string/add_to_chart"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+</ScrollView>

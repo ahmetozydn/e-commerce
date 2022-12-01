@@ -11,6 +11,9 @@
     <string name="or">OR</string>
     <string name="home">Home</string>
     <string name="favorite">Favorites</string>
-    <string name="shopping">Shopping</string>
     <string name="profile">Profile</string>
+    <string name="add_to_chart">Add to Chart</string>
+    <string name="description">Description</string>
+    <string name="features">Features</string>
+    <string name="chart">Chart</string>
 </resources>

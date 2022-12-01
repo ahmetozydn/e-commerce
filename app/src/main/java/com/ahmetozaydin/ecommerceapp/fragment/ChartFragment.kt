@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import com.ahmetozaydin.ecommerceapp.R
 
 
-class ShoppingFragment : Fragment() {
+class ChartFragment : Fragment() {
 
 
     override fun onCreateView(
@@ -16,7 +16,7 @@ class ShoppingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_shopping, container, false)
+        return inflater.inflate(R.layout.chart_fragment, container, false)
     }
 
 }

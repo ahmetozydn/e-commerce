@@ -9,13 +9,13 @@
     <item
         android:id="@+id/action_favorites"
         android:enabled="true"
-        android:icon="@drawable/ic_favorite"
+        android:icon="@drawable/ic_favorite_outlined"
         android:title="@string/favorite" />
     <item
-        android:id="@+id/action_shopping"
+        android:id="@+id/action_chart"
         android:enabled="true"
         android:icon="@drawable/ic_shopping_bag"
-        android:title="@string/shopping" />
+        android:title="@string/chart" />
     <item
         android:id="@+id/action_profile"
         android:enabled="true"
