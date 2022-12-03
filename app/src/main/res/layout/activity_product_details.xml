@@ -24,7 +24,14 @@
             app:useMaterialThemeColors="false"
             />
 
-        <ImageView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewAllImages"
+            android:layout_width="match_parent"
+            android:layout_height="340dp"
+            android:orientation="horizontal"
+            android:padding="5dp" />
+
+       <!-- <ImageView
             android:id="@+id/imageOfProduct"
             android:layout_width="match_parent"
             android:layout_height="400dp"
@@ -34,24 +41,24 @@
             android:layout_marginEnd="2dp"
             android:layout_marginBottom="2dp"
             android:contentDescription="@string/app_name"
-            android:padding="2dp" />
+            android:padding="2dp" />  -->
 
         <!-- Text View to display Course Name -->
         <TextView
             android:id="@+id/textViewProductName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/imageOfProduct"
+            android:layout_below="@id/recyclerViewAllImages"
             android:layout_marginTop="6dp"
             android:fontFamily="sans-serif"
-            android:textStyle="bold"
             android:lines="2"
             android:maxLines="2"
             android:paddingStart="1dp"
             android:paddingEnd="1dp"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
         <!-- Text VIew to display Course Rating -->
         <!-- Image used in present in drawable folder -->
@@ -87,6 +94,10 @@
             android:layout_alignParentStart="true"
             android:layout_marginTop="6dp"
             android:clickable="false"
+            android:contextClickable="false"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:isIndicator="true"
             android:progressTint="@color/orange"
             android:scaleX="0.5"
             android:scaleY="0.5"
@@ -122,7 +133,7 @@
             android:paddingEnd="1dp"
             android:textAlignment="center"
             android:textColor="@color/green"
-            android:textSize="12sp" />
+            android:textSize="14sp" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonAddToShopping"

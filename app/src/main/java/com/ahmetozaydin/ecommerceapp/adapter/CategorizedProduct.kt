@@ -1,13 +1,16 @@
 package com.ahmetozaydin.ecommerceapp.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.ahmetozaydin.ecommerceapp.databinding.CardViewBinding
+import com.ahmetozaydin.ecommerceapp.R
+import com.ahmetozaydin.ecommerceapp.databinding.EachProductBinding
 import com.ahmetozaydin.ecommerceapp.model.Product
-import com.squareup.picasso.Picasso
+import com.ahmetozaydin.ecommerceapp.view.ProductDetailsActivity
+import com.bumptech.glide.Glide
 
 class CategorizedProduct(
     private val products: ArrayList<Product>,
@@ -21,14 +24,14 @@ class CategorizedProduct(
             position: Int
         )//service : Service de alabilir.
     }
-    class PlaceHolder(val binding: CardViewBinding) : RecyclerView.ViewHolder(binding.root) {
+    class PlaceHolder(val binding: EachProductBinding) : RecyclerView.ViewHolder(binding.root) {
     }
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): PlaceHolder {// layout ile bağlama işlemi, view binding ile
         val binding =
-            CardViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            EachProductBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return PlaceHolder(binding)
     }
     override fun onBindViewHolder(
@@ -50,9 +53,23 @@ class CategorizedProduct(
             println("hello world" +
                     "")
         }*/
-        Picasso.with(context).load(products[position].thumbnail).into(holder.binding.imageOfProduct)
+        //Picasso.with(context).load(products[position].thumbnail).into(holder.binding.imageOfProduct)
+        Glide.with(context)
+            .load(products[position].thumbnail)
+            .override(300,300)
+            .error(R.drawable.ic_launcher_foreground)
+            .into(holder.binding.imageOfProduct)
         holder.binding.textViewProductName.text =  products[position].title
         holder.binding.textViewProductPrice.text =  "$"+products[position].price.toString()
+
+        holder.itemView.setOnClickListener {
+            val intent = Intent(context,ProductDetailsActivity::class.java)
+            intent.putExtra("product",products[position])
+            context.startActivity(intent)
+        }
+        holder.binding.buttonAddToCart.setOnClickListener {
+
+        }
     }
     override fun getItemCount(): Int {
         return products.size

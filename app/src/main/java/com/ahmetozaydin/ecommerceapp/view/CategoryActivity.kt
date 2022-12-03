@@ -1,6 +1,9 @@
 package com.ahmetozaydin.ecommerceapp.view
 
+import android.R
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ahmetozaydin.ecommerceapp.adapter.CategorizedProduct
@@ -14,8 +17,8 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+
 class CategoryActivity : AppCompatActivity(){
-    private lateinit var extension : String
     private lateinit var binding: ActivityCategoryBinding
     private lateinit var categorizedProduct: CategorizedProduct
     private var productList = ArrayList<Product>()
@@ -23,13 +26,12 @@ class CategoryActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         binding = ActivityCategoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         val thread = Thread {
             try {
                 val layoutManager = GridLayoutManager(this,1)
                 binding.recyclerViewCategorizedProduct.layoutManager = layoutManager
                 val categoryType = intent.getStringExtra("category_type")
-                println(categoryType)
+                supportActionBar?.title = categoryType
                 val url = "products/category/$categoryType"
                 println(url)
                 val retrofit = Retrofit.Builder()
@@ -60,4 +62,18 @@ class CategoryActivity : AppCompatActivity(){
         thread.start()
 
     }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.home -> {
+                onBackPressed()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        return true
+    }
+
 }

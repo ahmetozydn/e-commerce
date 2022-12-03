@@ -4,7 +4,7 @@
     package="com.ahmetozaydin.ecommerceapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.VIBRATE" />
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -16,9 +16,12 @@
         android:theme="@style/Theme.Ecommerceapp"
         tools:targetApi="31">
         <activity
-            android:theme="@style/Theme.Ecommerceapp.NoActionBar"
+            android:theme="@style/Theme.Ecommerceapp"
+
             android:name=".view.CategoryActivity"
-            android:exported="false" />
+            android:exported="false" >
+
+        </activity>
         <activity
             android:theme="@style/Theme.Ecommerceapp.NoActionBar"
             android:name=".view.ProductDetailsActivity"
