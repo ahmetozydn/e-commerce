@@ -1,52 +1,45 @@
 package com.ahmetozaydin.ecommerceapp.adapter
 
-import android.app.Activity
-import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.ahmetozaydin.ecommerceapp.databinding.CardViewBinding
+import com.ahmetozaydin.ecommerceapp.data.Cart
+import com.ahmetozaydin.ecommerceapp.data.CartDatabase
+import com.ahmetozaydin.ecommerceapp.data.Favorite
+import com.ahmetozaydin.ecommerceapp.data.FavoriteDatabase
+import com.ahmetozaydin.ecommerceapp.databinding.EachProductBinding
 import com.ahmetozaydin.ecommerceapp.model.Product
+import com.ahmetozaydin.ecommerceapp.utils.Utils
+import com.ahmetozaydin.ecommerceapp.utils.downloadFromUrl
+import com.ahmetozaydin.ecommerceapp.utils.placeholderProgressBar
 import com.ahmetozaydin.ecommerceapp.view.ProductDetailsActivity
-import com.squareup.picasso.Picasso
-import java.io.InputStream
-import java.net.URL
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 class ProductsAdapter(
-
     private val products: List<Product>,
-    private var imageViews: ArrayList<Drawable>,
     val context: Context,
-    val activity: Activity,
-    private val listener: Listener
 ) : RecyclerView.Adapter<ProductsAdapter.PlaceHolder>() {
-    private var bitmap: Bitmap? = null
+    private var favoriteDatabase : FavoriteDatabase? = null
+    private var favorite: Favorite? = null
+    private var cartDatabase:CartDatabase? = null
     companion object{
          val checkBoxHashmap: HashMap<Int, Boolean> = HashMap<Int, Boolean>()
     }
-    private lateinit var url: URL
-    private var imageUrl: String? = null
-    private var inputStream: InputStream? = null
-    private lateinit var context1: Context
-
     interface Listener {
         fun onItemClick(products: Product)//service : Service de alabilir.
     }
-
-    class PlaceHolder(val binding: CardViewBinding) : RecyclerView.ViewHolder(binding.root) {
+    class PlaceHolder(val binding: EachProductBinding) : RecyclerView.ViewHolder(binding.root) {
     }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): PlaceHolder {// layout ile bağlama işlemi, view binding ile
-        val binding = CardViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = EachProductBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return PlaceHolder(binding)
     }
 
@@ -54,63 +47,106 @@ class ProductsAdapter(
         holder: PlaceHolder,
         position: Int
     ) {
-
-        Picasso.with(context).load(products[position].thumbnail).into(holder.binding.imageOfProduct)
-        val thread = Thread {
-            /*  imageUrl = products[position].thumbnail.toString()
-             inputStream =  URL(imageUrl).openStream();
-              bitmap = BitmapFactory.decodeStream(inputStream);*/
-            println("Thread is worked")
-            /* url = URL(products[position].thumbnail)// bunlar local değişken olmasa daha iyi olabilir
-             image = BitmapFactory.decodeStream(
-                 url.openConnection().getInputStream())*/
-        }
-        thread.start()
-
-        //holder.binding.imageOfProduct.setImageBitmap(bitmap)
-        /*Glide.with(products[position].thumbnail.context).load(context.response.get(position).getThumbnail()).into(holder.binding.imageOfProduct);
-        holder.binding.imageOfProduct.setImageBitmap(null)
-        Glide.with(context)
-            .load(imageUrl)
-            .centerCrop()
-            .into(holder.binding.imageOfProduct);*/
-        // Picasso.with(context).load(imageUrl).into(holder.binding.imageOfProduct);
-        /* Picasso.with(context).load(imageUrl).fit().centerCrop()
-             .placeholder(R.drawable.ic_home)
-             .error(R.drawable.ic_favorite_filled)
-             .into(holder.binding.imageOfProduct);*/
-        activity.runOnUiThread {
-            Log.i(TAG, "runOnUiThread is worked.")
+        /*Glide.with(context)
+            .load(products[position].thumbnail)
+            .override(300,300)
+            .error(R.drawable.ic_launcher_foreground)
+            .into(holder.binding.imageOfProduct)*/
+            holder.binding.imageOfProduct.downloadFromUrl(products[position].thumbnail,
+                placeholderProgressBar(holder.itemView.context))
             holder.binding.textViewProductName.text = products[position].title.toString()
             holder.binding.textViewProductPrice.text = "$" + products[position].price.toString()
-            //holder.binding.imageOfProduct.setImageBitmap(image)
-        }
-        //activity.runO nUiThread
-        holder.binding.buttonAddToShopping.setOnClickListener {
-            //listener.onItemClick(products[position])
-            println(holder.absoluteAdapterPosition)
-        }
-        holder.binding.cardView.setOnClickListener {
+        cartDatabase = CartDatabase.invoke(context)
+        //activity.runOnUiThread
+        //Picasso.with(context).load(products[position].thumbnail).into(holder.binding.imageOfProduct)
+        holder.binding.buttonAddToCart.setOnClickListener {
+            GlobalScope.launch {
+                if(cartDatabase?.cartDao()?.searchForEntity((holder.absoluteAdapterPosition.plus(1))) !=products[position].id
+                    || cartDatabase?.cartDao()?.rowCount() == 0) {
+                    //INSERT
+                    println("INSERT")
+                    cartDatabase?.cartDao()?.insertEntity(Cart(
+                        products[position].id,
+                        products[position].title,
+                        products[position].discountPercentage,
+                        products[position].description,
+                        products[position].price,
+                        products[position].rating,
+                        products[position].stock,
+                        products[position].brand,
+                        products[position].thumbnail,
+                        0
 
-            println("clicked positon is " + products[position].id)
-            println(holder.binding.imageOfProduct.id)
-            println("clicked holder.binding.cardView.id is" + holder.binding.cardView.id)
-            val intent = Intent(context, ProductDetailsActivity::class.java)
-            //listener.onItemClick(products[position])
-            intent.putExtra("product", products[position])
-            context.startActivity(intent)
-        }
-        holder.binding.checkBox.setOnClickListener {
-            if (holder.binding.checkBox.isChecked && !checkBoxHashmap.contains(holder.absoluteAdapterPosition)) {
-                checkBoxHashmap.put(holder.absoluteAdapterPosition, true)
+                    ))
+                    println(cartDatabase?.cartDao()?.getAllEntities())
+                }else{
+                    //DELETE
+                    println("DELETE")
+                    cartDatabase?.cartDao()?.delete(holder.absoluteAdapterPosition.plus(1))
+                    println(cartDatabase?.cartDao()?.getAllEntities())
+                }
             }
 
-            if (holder.binding.checkBox.isChecked)
+        }
+        
+        holder.itemView.setOnClickListener { // holder.binding.cardView.setOnClickListener
+            val intent = Intent(context, ProductDetailsActivity::class.java)
+            intent.putExtra("product", products[position])
+            context.startActivity(intent)
+            //listener.onItemClick(products[position])
+        }
+        favoriteDatabase = FavoriteDatabase.invoke(context)
+        holder.binding.checkBox.setOnClickListener {
+            Utils.vibrateDevice(context)
+            GlobalScope.launch{
+         /*   if (products[position].id?.let {
+                    favoriteDatabase?.favoriteDao()?.searchForEntity(it)
+                } == products[position].id) {
+                favoriteDatabase?.favoriteDao()?.delete(holder.absoluteAdapterPosition+1)
+                println(favoriteDatabase?.favoriteDao()?.getAllEntities())
+
+
+            }else
+            {
+                println(favoriteDatabase?.favoriteDao()?.getAllEntities())
+                products[position].id?.let { it1 -> insertItem(it1) }
+            }*/
+                if(favoriteDatabase?.favoriteDao()?.searchForEntity((holder.absoluteAdapterPosition.plus(1))) !=products[position].id
+                    || favoriteDatabase?.favoriteDao()?.rowCount() == 0){
+                    println("\nINSERT")
+                    println("rows count before INSERT : "+favoriteDatabase?.favoriteDao()?.rowCount())
+                    favorite = Favorite( //TODO(is there better structure)
+                        products[position].id,
+                        products[position].title,
+                        products[position].description,
+                        products[position].price,
+                        products[position].rating,
+                        products[position].thumbnail,
+                        0
+                    )
+                    favoriteDatabase?.favoriteDao()?.insertEntity(favorite!!)
+                    println("rows count after INSERT : "+favoriteDatabase?.favoriteDao()?.rowCount())
+                    println("is include the entity : "+favoriteDatabase?.favoriteDao()?.searchForEntity((holder.absoluteAdapterPosition.plus(1)))+" ==, !="+products[position].id)
+                    print("getAllEntities : "+favoriteDatabase?.favoriteDao()?.getAllEntities()+"\n")
+                }
+                else{
+                    println("\nDELETE")
+                    println("rows count before DELETE : "+favoriteDatabase?.favoriteDao()?.rowCount())
+                    println("is include the entity : "+favoriteDatabase?.favoriteDao()?.searchForEntity((holder.absoluteAdapterPosition.plus(1)))+" ==, !="+products[position].id)
+                    favoriteDatabase?.favoriteDao()?.delete(holder.absoluteAdapterPosition.plus(1))
+                    println("rows count after DELETE : "+favoriteDatabase?.favoriteDao()?.rowCount())
+                    println("getAllEntities : "+favoriteDatabase?.favoriteDao()?.getAllEntities()+"\n")
+                }
+            }
+
+
+
+            /*if (holder.binding.checkBox.isChecked)
                 checkBoxHashmap.put(holder.absoluteAdapterPosition, true)
             else
                 checkBoxHashmap.remove(holder.absoluteAdapterPosition)
             if(!checkBoxHashmap.size.equals(0))
-                println(checkBoxHashmap)
+                println(checkBoxHashmap)*/
         }
     }
     override fun getItemCount(): Int {
@@ -127,13 +163,20 @@ class ProductsAdapter(
 
     override fun onViewAttachedToWindow(holder: PlaceHolder) {
         super.onViewAttachedToWindow(holder)
-        if(checkBoxHashmap.contains(holder.absoluteAdapterPosition)){
+        /*if(checkBoxHashmap.contains(holder.absoluteAdapterPosition)){
             holder.binding.checkBox.isChecked = true
+        }*/
+        GlobalScope.launch {
+            if(favoriteDatabase?.favoriteDao()?.searchForEntity((holder.absoluteAdapterPosition.plus(1))) ==holder.absoluteAdapterPosition.plus(1)){
+                holder.binding.checkBox.isChecked = true
+            }
         }
+
     }
 
     override fun onViewRecycled(holder: PlaceHolder) {
-        holder.binding.checkBox.isChecked = false // - this line do the trick
         super.onViewRecycled(holder)
+
+        //holder.binding.checkBox.isChecked = false // - this line do the trick
     }
 }

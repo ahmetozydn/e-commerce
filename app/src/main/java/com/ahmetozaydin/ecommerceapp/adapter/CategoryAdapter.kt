@@ -2,17 +2,12 @@ package com.ahmetozaydin.ecommerceapp.adapter
 
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.ahmetozaydin.ecommerceapp.databinding.CardViewBinding
 import com.ahmetozaydin.ecommerceapp.databinding.EachCategoryBinding
 import com.ahmetozaydin.ecommerceapp.model.Product
 import com.ahmetozaydin.ecommerceapp.view.CategoryActivity
-import com.ahmetozaydin.ecommerceapp.view.ProductDetailsActivity
 
 class CategoryAdapter(
     private val products: ArrayList<Product>,

@@ -13,5 +13,21 @@ z
 Japp/src/main/java/com/ahmetozaydin/ecommerceapp/fragment/SignUpFragment.kt,6\a\6a2497f27066364d3943a6adf8ec426fea4b5deb
 u
 Eapp/src/main/java/com/ahmetozaydin/ecommerceapp/view/LogInActivity.kt,f\e\fecd4f5332e164651c170dbe05b5502ff60444ab
+<
+build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35
+v
+Fapp/src/main/java/com/ahmetozaydin/ecommerceapp/service/ProductsAPI.kt,8\c\8cd14780064be44f484eec4ab103e9413d454479
+p
+@app/src/main/java/com/ahmetozaydin/ecommerceapp/model/Product.kt,d\9\d955ed7b22dd8ae992114cd0642538e790b5d42b
+x
+Happ/src/main/java/com/ahmetozaydin/ecommerceapp/view/CategoryActivity.kt,e\4\e4cf07dec595ac9bea25a18902614989aec94415
+z
+Japp/src/main/java/com/ahmetozaydin/ecommerceapp/adapter/CategoryAdapter.kt,f\c\fc96195ae96dd0d15dadcd03a29c912bf24c3cdc
+P
+ app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
+x
+Happ/src/main/java/com/ahmetozaydin/ecommerceapp/data/FavoriteDatabase.kt,1\6\1617aba5ed7caaca55fa6af633f072e425c7dc3d
 {
 Kapp/src/main/java/com/ahmetozaydin/ecommerceapp/adapter/TabLayoutAdapter.kt,e\b\eb1b537f773bb246ea14d2f717ec300b98ae221e
+p
+@app/src/main/java/com/ahmetozaydin/ecommerceapp/data/Favorite.kt,7\e\7edb64634bc960e76c9c454f52160582f35da779

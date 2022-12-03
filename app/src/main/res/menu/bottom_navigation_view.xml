@@ -12,10 +12,10 @@
         android:icon="@drawable/ic_favorite_outlined"
         android:title="@string/favorite" />
     <item
-        android:id="@+id/action_chart"
+        android:id="@+id/action_cart"
         android:enabled="true"
-        android:icon="@drawable/ic_shopping_bag"
-        android:title="@string/chart" />
+        android:icon="@drawable/ic_cart"
+        android:title="@string/cart" />
     <item
         android:id="@+id/action_profile"
         android:enabled="true"

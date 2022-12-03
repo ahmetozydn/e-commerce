@@ -12,8 +12,13 @@
     <string name="home">Home</string>
     <string name="favorite">Favorites</string>
     <string name="profile">Profile</string>
-    <string name="add_to_chart">Add to Chart</string>
+    <string name="add_to_chart">Add to Cart</string>
     <string name="description">Description</string>
     <string name="features">Features</string>
-    <string name="chart">Chart</string>
+    <string name="cart">Cart</string>
+    <string name="empty_favorite_list">You don\'t have any favorite!</string>
+    <string name="dolar">$  </string>
+    <string name="cart_empty_list_message">You don\'t have any cart!</string>
+    <string name="purchase">Purchase</string>
+    <string name="wordTotal">Total</string>
 </resources>

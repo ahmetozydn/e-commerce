@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.FavoriteFragment">
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/favoriteRecyclerView"
+        android:fadeScrollbars="true"
+        android:scrollIndicators="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayoutFavorite"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content">
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:scaleY="1.5"
+            android:scaleX="1.5"
+            />
+
+        <CheckBox
+            android:id="@+id/imageViewFavorite"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:foreground="@drawable/selector_favorites"
+            android:layout_centerHorizontal="true"
+            android:contentDescription="@string/app_name"
+            android:button="@drawable/selector_favorites" />
+
+        <TextView
+            android:id="@+id/textViewEmptyListMessage"
+            android:layout_width="match_parent"
+            android:fontFamily="sans-serif-thin"
+            android:layout_height="wrap_content"
+            android:text="@string/empty_favorite_list"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textAlignment="center"
+            android:layout_below="@id/imageViewFavorite"
+            />
+    </RelativeLayout>
+
+
+</FrameLayout>
