@@ -15,7 +15,7 @@ import kotlin.text.Typography.dollar
 class CartAdapter(
     private val cartList: ArrayList<Cart>,
     val context: Context,
-    val cartDatabase: CartDatabase?
+    val cartDatabase: CartDatabase?,private val strings: List<String>
 ) : RecyclerView.Adapter<CartAdapter.PlaceHolder>() {
     class PlaceHolder(val binding: EachCartBinding) : RecyclerView.ViewHolder(binding.root) {
     }

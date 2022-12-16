@@ -15,15 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <CheckBox
-            android:id="@+id/checkBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="5dp"
-            android:button="@drawable/selector_favorites"
-            app:useMaterialThemeColors="false" />
+
         <!--TODO(is usage of the progress bar is correct?. When the image is loaded the progress
         bar keep using memory?-->
         <!--<ProgressBar
@@ -44,11 +36,25 @@
             android:layout_height="150dp"
             android:layout_centerHorizontal="true"
             android:layout_marginStart="2dp"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="6dp"
             android:layout_marginEnd="2dp"
             android:layout_marginBottom="2dp"
             android:contentDescription="@string/app_name"
             android:padding="2dp" />
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="1dp"
+            android:background="@drawable/shape_ring"
+            android:button="@drawable/selector_favorites"
+            android:scaleX="0.7"
+            android:scaleY="0.7"
+            app:useMaterialThemeColors="false" />
 
         <!-- Text View to display Course Name -->
         <TextView
@@ -98,12 +104,10 @@
             android:fontFamily="sans-serif"
             android:insetTop="0dp"
             android:insetBottom="0dp"
-            android:paddingLeft="15dp"
-            android:paddingTop="3dp"
-            android:paddingRight="15dp"
-            android:paddingBottom="3dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
             android:scaleX="0.8"
-            android:scaleY="0.7"
+            android:scaleY="0.8"
             android:text="@string/add_to_chart"
             android:textAllCaps="false"
             android:textColor="@color/white" />

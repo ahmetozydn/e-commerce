@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.CategoryFragment">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewCategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewCategorizedProduct"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@id/recyclerViewCategory"
+        android:layout_alignParentStart="true"
+        android:scrollbars="vertical"
+        android:scrollbarSize="2dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true" />
+</RelativeLayout>

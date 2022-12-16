@@ -7,6 +7,12 @@
         android:enabled="true"
         android:title="@string/home" />
     <item
+        android:id="@+id/action_category"
+        android:enabled="true"
+        android:icon="@drawable/ic_category"
+        android:title="@string/category"
+        />
+    <item
         android:id="@+id/action_favorites"
         android:enabled="true"
         android:icon="@drawable/ic_favorite_outlined"
@@ -16,6 +22,7 @@
         android:enabled="true"
         android:icon="@drawable/ic_cart"
         android:title="@string/cart" />
+
     <item
         android:id="@+id/action_profile"
         android:enabled="true"

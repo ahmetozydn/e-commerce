@@ -18,4 +18,9 @@
         <item name="windowNoTitle">true</item>
         <item name="android:statusBarColor">@color/black</item>
     </style>
+    <style name="SplashScreenTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+        <item name="android:statusBarColor">@color/orange</item>
+    </style>
 </resources>
+

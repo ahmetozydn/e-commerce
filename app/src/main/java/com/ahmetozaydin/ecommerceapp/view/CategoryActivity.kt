@@ -39,7 +39,7 @@ class CategoryActivity : AppCompatActivity(){
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
                 val service = retrofit.create(ProductsAPI::class.java)
-                val call = service.fetchData(url)
+                val call = service.getCategorizedProduct(url)
                 call.enqueue(object : Callback<BaseClass> {
                     override fun onFailure(call: Call<BaseClass>, t: Throwable) {
                         t.printStackTrace()
@@ -71,7 +71,6 @@ class CategoryActivity : AppCompatActivity(){
         }
         return super.onOptionsItemSelected(item)
     }
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         return true
     }

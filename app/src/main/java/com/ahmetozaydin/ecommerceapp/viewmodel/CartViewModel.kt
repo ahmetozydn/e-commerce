@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import com.ahmetozaydin.ecommerceapp.adapter.CartAdapter
 import com.ahmetozaydin.ecommerceapp.data.Cart
 import com.ahmetozaydin.ecommerceapp.data.CartDatabase
-import com.ahmetozaydin.ecommerceapp.databinding.EachCartBinding
 import com.ahmetozaydin.ecommerceapp.databinding.FragmentCartBinding
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -21,7 +20,7 @@ class CartViewModel : ViewModel() {
         println("getDataFromRoom")
         GlobalScope.launch {
             cartDatabase.cartDao().getAllEntities().forEach{
-                tempList.add(it)
+                tempList.add(it) //TODO)
                 println("x")
             }
         }

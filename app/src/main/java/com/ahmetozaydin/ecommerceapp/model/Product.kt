@@ -14,7 +14,7 @@ data class BaseClass(
 
 @Parcelize
 data class Product(
-    @SerializedName("id") val id: Int? = null,
+    @SerializedName("id") val id: Int? = null,//named as productId, productName... and productList --> products
     @SerializedName("title") val title: String? = null,
     @SerializedName("description") val description: String? = null,
     @SerializedName("price") val price: Int? = null,

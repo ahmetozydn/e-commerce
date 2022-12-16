@@ -2,7 +2,6 @@ package com.ahmetozaydin.ecommerceapp.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import com.ahmetozaydin.ecommerceapp.R
 import com.ahmetozaydin.ecommerceapp.adapter.TabLayoutAdapter
 import com.ahmetozaydin.ecommerceapp.databinding.ActivityLogInBinding
@@ -13,11 +12,11 @@ class LogInActivity : AppCompatActivity() {
     lateinit var binding: ActivityLogInBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme(R.style.Theme_Ecommerceapp_NoActionBar)
         binding = ActivityLogInBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
         setUpTabs()
-
     }
 
     private fun setUpTabs() {

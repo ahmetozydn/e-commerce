@@ -9,6 +9,6 @@
         android:drawable="@drawable/ic_favorite_filled"
         android:state_checked="true" />
 
-    <!--<item android:drawable="@drawable/ic_favorite_outlined" /> -->
+    <item android:drawable="@drawable/ic_favorite_outlined" />
 
 </selector>

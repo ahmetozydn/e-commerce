@@ -2,28 +2,28 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
     <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonEachCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="4dp"
-        android:layout_marginEnd="4dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="-3dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="-3dp"
         android:backgroundTint="@color/white"
         android:fontFamily="sans-serif"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:textScaleX="1.1"
+        android:scaleX="1.1"
+        android:scaleY="1.1"
         android:textAllCaps="false"
         android:textColor="#5A5959"
         android:textSize="12sp"
         app:cornerRadius="15dp"
+
         app:strokeColor="#DDD7D7"
         app:strokeWidth="1dp"
         app:useMaterialThemeColors="false" />

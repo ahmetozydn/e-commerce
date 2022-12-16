@@ -42,7 +42,7 @@ class FavoriteFragment : Fragment() {
                 binding.relativeLayoutFavorite.visibility = View.VISIBLE
                 binding.favoriteRecyclerView.visibility = View.INVISIBLE
             }else{
-                binding.relativeLayoutFavorite.visibility = View.INVISIBLE
+                binding.relativeLayoutFavorite.visibility = View.INVISIBLE// TODO(Can't create handler inside thread)
                 binding.favoriteRecyclerView.visibility = View.VISIBLE
             }
         }

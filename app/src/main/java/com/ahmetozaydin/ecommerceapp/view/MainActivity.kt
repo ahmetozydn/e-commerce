@@ -1,17 +1,12 @@
 package com.ahmetozaydin.ecommerceapp.view
 
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import com.ahmetozaydin.ecommerceapp.R
 import com.ahmetozaydin.ecommerceapp.databinding.ActivityMainBinding
-import com.ahmetozaydin.ecommerceapp.fragment.CartFragment
-import com.ahmetozaydin.ecommerceapp.fragment.FavoriteFragment
-import com.ahmetozaydin.ecommerceapp.fragment.HomeFragment
-import com.ahmetozaydin.ecommerceapp.fragment.ProfileFragment
+import com.ahmetozaydin.ecommerceapp.fragment.*
+
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var homeFragment = HomeFragment()
@@ -26,11 +21,14 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-        beginTransaction(HomeFragment())
+        beginTransaction(homeFragment)
         binding.bottomNavigationView.setOnItemSelectedListener{
             when(it.itemId){
                 R.id.action_home -> {
-                    beginTransaction(HomeFragment())
+                    beginTransaction(homeFragment)
+                }
+                R.id.action_category ->{
+                    beginTransaction(CategoryFragment())
                 }
                 R.id.action_favorites ->{
                     //val favoritesFragment = FavoriteFragment()//TODO(implement a better structure)
@@ -48,6 +46,8 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
+
     private fun beginTransaction(fragment : Fragment){
             supportFragmentManager.beginTransaction().apply {
                 replace(R.id.frameLayout, fragment)

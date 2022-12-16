@@ -40,7 +40,6 @@ class CategoryAdapter(
         holder: PlaceHolder,
         position: Int
     ) {//bağlamadan sonraki kısım,hangi item ne verisi gösterecek.
-
         holder.binding.buttonEachCategory.text = categories[position]
         //products[position].category.toString()
         /*if(categories.contains(it.category)){

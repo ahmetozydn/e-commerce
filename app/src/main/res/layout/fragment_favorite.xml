@@ -33,22 +33,21 @@
             android:id="@+id/imageViewFavorite"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:foreground="@drawable/selector_favorites"
             android:layout_centerHorizontal="true"
+            android:button="@drawable/selector_favorites"
             android:contentDescription="@string/app_name"
-            android:button="@drawable/selector_favorites" />
+            android:foreground="@drawable/selector_favorites" />
 
         <TextView
             android:id="@+id/textViewEmptyListMessage"
             android:layout_width="match_parent"
-            android:fontFamily="sans-serif-thin"
             android:layout_height="wrap_content"
-            android:text="@string/empty_favorite_list"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:textAlignment="center"
             android:layout_below="@id/imageViewFavorite"
-            />
+            android:fontFamily="sans-serif-thin"
+            android:text="@string/empty_favorite_list"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="bold" />
     </RelativeLayout>
 
 

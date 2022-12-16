@@ -14,36 +14,43 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_alignParentEnd="true"
-            android:button="@drawable/selector_favorites"
-            app:useMaterialThemeColors="false"
-            />
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewAllImages"
             android:layout_width="match_parent"
             android:layout_height="340dp"
             android:orientation="horizontal"
-            android:padding="5dp" />
+            android:padding="6dp" />
 
-       <!-- <ImageView
-            android:id="@+id/imageOfProduct"
-            android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginStart="2dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginEnd="2dp"
-            android:layout_marginBottom="2dp"
-            android:contentDescription="@string/app_name"
-            android:padding="2dp" />  -->
 
-        <!-- Text View to display Course Name -->
+        <CheckBox
+            android:id="@+id/checkBoxFavorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="1dp"
+            android:background="@drawable/shape_ring"
+            android:button="@drawable/selector_favorites"
+            android:scaleX="0.9"
+            android:scaleY="0.9"
+            app:useMaterialThemeColors="false" />
+
+        <CheckBox
+            android:id="@+id/checkBoxCart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/checkBoxFavorite"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="1dp"
+            android:background="@drawable/shape_ring"
+            android:button="@drawable/selector_cart"
+            android:scaleX="1"
+            android:scaleY="1"
+            app:useMaterialThemeColors="false" />
         <TextView
             android:id="@+id/textViewProductName"
             android:layout_width="match_parent"
@@ -99,8 +106,8 @@
             android:insetBottom="0dp"
             android:isIndicator="true"
             android:progressTint="@color/orange"
-            android:scaleX="0.5"
-            android:scaleY="0.5"
+            android:scaleX="0.4"
+            android:scaleY="0.4"
             android:stepSize="0.2"
             android:transformPivotX="10dp"
             android:transformPivotY="10dp">
@@ -147,10 +154,10 @@
             android:background="@drawable/ripple"
             android:backgroundTint="@color/orange"
             android:fontFamily="sans-serif"
-            android:paddingLeft="15dp"
-            android:paddingTop="3dp"
-            android:paddingRight="15dp"
-            android:paddingBottom="10dp"
+            android:paddingLeft="30dp"
+            android:paddingTop="-55dp"
+            android:paddingRight="30dp"
+            android:paddingBottom="-30dp"
             android:text="@string/add_to_chart"
             android:textAllCaps="false"
             android:textColor="@color/white" />

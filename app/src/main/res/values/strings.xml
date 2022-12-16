@@ -10,7 +10,7 @@
     <string name="signingoogle">Sign In Google</string>
     <string name="or">OR</string>
     <string name="home">Home</string>
-    <string name="favorite">Favorites</string>
+    <string name="favorite">Favorite</string>
     <string name="profile">Profile</string>
     <string name="add_to_chart">Add to Cart</string>
     <string name="description">Description</string>
@@ -21,4 +21,7 @@
     <string name="cart_empty_list_message">You don\'t have any cart!</string>
     <string name="purchase">Purchase</string>
     <string name="wordTotal">Total</string>
+    <string name="category">Category</string>
+    <string name="search_for_product">Search for product</string>
+    <string name="product_not_found">Product not found!</string>
 </resources>
