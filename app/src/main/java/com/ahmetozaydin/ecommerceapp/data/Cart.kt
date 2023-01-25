@@ -36,6 +36,8 @@ data class Cart(
     @SerializedName("isAddedToCart")
     @ColumnInfo(name = "isAddedToCart")
     val isAddedToCart: Int,
+    @ColumnInfo(name = "quantity")
+    val quantity : Int,
     @PrimaryKey(autoGenerate = true)
     var uuid: Int = 0
 )

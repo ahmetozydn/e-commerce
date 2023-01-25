@@ -4,16 +4,16 @@
     android:id="@+id/cardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="1dp"
+    android:layout_margin="2dp"
     app:cardBackgroundColor="@color/white"
-    app:cardCornerRadius="6dp"
+    app:cardCornerRadius="8dp"
     app:cardPreventCornerOverlap="true"
     app:cardElevation="3dp"
-    app:cardUseCompatPadding="true">
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
 
         <!--TODO(is usage of the progress bar is correct?. When the image is loaded the progress
@@ -30,17 +30,23 @@
             android:scaleY="0.4"
             />-->
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imageOfProduct"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            app:shapeAppearanceOverlay="@style/roundedImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginStart="2dp"
-            android:layout_marginTop="6dp"
+            android:minHeight="150dp"
+            android:scaleType="fitXY"
+            android:minWidth="150dp"
+            android:maxWidth="200dp"
+            android:maxHeight="200dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="2dp"
             android:layout_marginBottom="2dp"
             android:contentDescription="@string/app_name"
-            android:padding="2dp" />
+            />
 
         <CheckBox
             android:id="@+id/checkBox"

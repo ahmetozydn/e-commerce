@@ -3,6 +3,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonEachCategory"
         android:layout_width="wrap_content"
@@ -20,7 +21,7 @@
         android:scaleX="1.1"
         android:scaleY="1.1"
         android:textAllCaps="false"
-        android:textColor="#5A5959"
+        android:textColor="@color/black"
         android:textSize="12sp"
         app:cornerRadius="15dp"
 

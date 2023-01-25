@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="fragment"
+            type="com.ahmetozaydin.ecommerceapp.fragment.CartFragment" />
+        <variable
+            name="adapter"
+            type="com.ahmetozaydin.ecommerceapp.adapter.CartAdapter" />
+    </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -8,6 +17,7 @@
 
 
     <FrameLayout
+        android:animateLayoutChanges="true"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
@@ -17,7 +27,8 @@
         tools:context=".fragment.CartFragment">
 
         <RelativeLayout
-            android:id="@+id/relativeLayoutFavorite"
+            android:visibility="invisible"
+            android:id="@+id/emptyListMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center">
@@ -33,12 +44,11 @@
 
             <CheckBox
                 android:id="@+id/imageViewFavorite"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:button="@drawable/selector_favorites"
-                android:contentDescription="@string/app_name"
-                android:foreground="@drawable/selector_favorites" />
+                android:button="@drawable/ic_cart"
+                android:contentDescription="@string/app_name" />
 
             <TextView
                 android:id="@+id/textViewEmptyListMessage"
@@ -109,6 +119,7 @@
             android:backgroundTint="@color/orange"
             android:fontFamily="sans-serif-thin"
             android:textStyle="bold"
+            android:onClick="@{()-> fragment.checkOutProducts()}"
             android:text="@string/purchase"
             android:textAllCaps="false"
             android:textColor="@color/black"
@@ -118,3 +129,4 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

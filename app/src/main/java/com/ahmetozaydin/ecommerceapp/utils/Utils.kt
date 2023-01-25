@@ -7,6 +7,7 @@ import android.os.Vibrator
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.content.ContextCompat.getSystemService
+import androidx.databinding.BindingAdapter
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.ahmetozaydin.ecommerceapp.R
 import com.bumptech.glide.Glide
@@ -49,4 +50,8 @@ fun placeholderProgressBar(context: Context): CircularProgressDrawable {
         centerRadius = 40f
         start()
     }
+}
+@BindingAdapter("android:downloadUrl")
+fun downloadImage(view:ImageView,url:String?){
+    view.downloadFromUrl(url, placeholderProgressBar(view.context))
 }

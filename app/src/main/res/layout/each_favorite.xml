@@ -16,8 +16,9 @@
         android:layout_height="match_parent">
 
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imageOfProduct"
+            app:shapeAppearanceOverlay="@style/roundedImageView"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_alignParentStart="true"

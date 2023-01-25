@@ -7,9 +7,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.ahmetozaydin.ecommerceapp.R
 import com.ahmetozaydin.ecommerceapp.adapter.CategoryAdapter
 import com.ahmetozaydin.ecommerceapp.adapter.ProductsAdapter
 import com.ahmetozaydin.ecommerceapp.databinding.FragmentHomeBinding
@@ -32,9 +30,7 @@ class HomeFragment : Fragment(), ProductsAdapter.Listener, CategoryAdapter.Liste
     private lateinit var binding: FragmentHomeBinding
     private var matchedProduct: ArrayList<Product> = arrayListOf()
     private var products = ArrayList<Product>()
-    private var productsAdapter: ProductsAdapter? = null
-    private var categoryAdapter: CategoryAdapter? = null
-    private lateinit var onStateScrolling : List<Int>
+    private lateinit var productsAdapter: ProductsAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,6 +43,7 @@ class HomeFragment : Fragment(), ProductsAdapter.Listener, CategoryAdapter.Liste
         binding.searchBarProduct.clearFocus()
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
@@ -56,6 +53,7 @@ class HomeFragment : Fragment(), ProductsAdapter.Listener, CategoryAdapter.Liste
                 search(query)
                 return true
             }
+
             override fun onQueryTextChange(newText: String): Boolean {
                 search(newText)
                 return true
@@ -63,24 +61,24 @@ class HomeFragment : Fragment(), ProductsAdapter.Listener, CategoryAdapter.Liste
         })
         var state = 1
 
-    binding.recyclerView.addOnScrollListener(object  : RecyclerView.OnScrollListener() {
-        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-            super.onScrollStateChanged(recyclerView, newState)
-        state = newState
-        }
-
-        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-            super.onScrolled(recyclerView, dx, dy)
-            if(dy>0 &&(state == 0 || state == 2)){
-                binding.searchBarProduct.visibility = View.GONE
-            }else if ( dy<-10){
-                binding.searchBarProduct.visibility = View.VISIBLE
+        binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                state = newState
             }
-        }
-    })
 
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (dy > 0 && (state == 0 || state == 2)) {
+                    binding.collapsingToolBarLayout.visibility = View.GONE
 
+                } else if (dy < -10) {
+                    binding.collapsingToolBarLayout.visibility = View.VISIBLE
+                }
+            }
+        })
     }
+
     private fun fetchData() {
         val retrofit = Retrofit
             .Builder()
@@ -96,6 +94,7 @@ class HomeFragment : Fragment(), ProductsAdapter.Listener, CategoryAdapter.Liste
                     t.printStackTrace()
                     println(t)
                 }
+
                 override fun onResponse(
                     call: Call<BaseClass>,
                     response: Response<BaseClass>
@@ -108,16 +107,14 @@ class HomeFragment : Fragment(), ProductsAdapter.Listener, CategoryAdapter.Liste
                             }
                         }
                     }
-                    productsAdapter = context?.let {
-                        ProductsAdapter(
-                            products,
-                            requireActivity(),
-                            requireActivity()
-                        )
-                    }
+                    productsAdapter = ProductsAdapter(
+                        products,
+                        requireActivity(),
+                        requireActivity()
+                    )
                     binding.recyclerView.adapter = productsAdapter
                     //val horizontalLayoutManager: RecyclerView.LayoutManager =
-                     //   LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                    //   LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     //binding.recyclerViewCategories.layoutManager = horizontalLayoutManager
                     //val categories = ArrayList<String>()
                     /*products.forEach {
@@ -127,13 +124,13 @@ class HomeFragment : Fragment(), ProductsAdapter.Listener, CategoryAdapter.Liste
                     }*/
                     //categoryAdapter = context?.let { CategoryAdapter(products, categories, it) }
                     //binding.recyclerViewCategories.adapter = categoryAdapter
-                   // binding.searchBarProduct.isSubmitButtonEnabled = true
+                    // binding.searchBarProduct.isSubmitButtonEnabled = true
                 }
             })
         })
     }
-    /* fun loadImageFromWeb(url: ArrayList<Product>?) {
 
+    /* fun loadImageFromWeb(url: ArrayList<Product>?) {
           try {
              url?.forEach {
                  val `is`: InputStream = URL(it.image?.get(1)).content as InputStream
@@ -146,11 +143,12 @@ class HomeFragment : Fragment(), ProductsAdapter.Listener, CategoryAdapter.Liste
     override fun onItemClick(products: Product) {
         Toast.makeText(activity, "item is clicked", Toast.LENGTH_SHORT).show()
     }
-   /* override fun onResume() {
-        super.onResume()
-        binding.recyclerViewCategories.adapter = categoryAdapter;
 
-    }*/
+    /* override fun onResume() {
+         super.onResume()
+         binding.recyclerViewCategories.adapter = categoryAdapter;
+
+     }*/
     override fun categoryButtonClicked(
         products: ArrayList<Product>,
         holder: CategoryAdapter.PlaceHolder,
@@ -162,14 +160,15 @@ class HomeFragment : Fragment(), ProductsAdapter.Listener, CategoryAdapter.Liste
             }
         }
     }
-    fun search(text: String?){
+
+    fun search(text: String?) { //alternative to it filter(),guava(). make inside viewModel
         matchedProduct = arrayListOf()
         text?.let {
             products.forEach { product ->
-                if ((product.title?.contains(text, true) == true)  ||
+                if ((product.title?.contains(text, true) == true) ||
                     product.description.toString().contains(text, true) ||
-                    product.category.toString().contains(text,true) ||
-                    product.brand.toString().contains(text,true)
+                    product.category.toString().contains(text, true) ||
+                    product.brand.toString().contains(text, true)
                 ) {
                     matchedProduct.add(product)
                 }
@@ -177,20 +176,23 @@ class HomeFragment : Fragment(), ProductsAdapter.Listener, CategoryAdapter.Liste
             updateRecyclerView()
             if (matchedProduct.isEmpty()) {
                 binding.linearLayoutEmptySearchMessage.visibility = View.VISIBLE
-            }else{
+
+            } else {
                 binding.linearLayoutEmptySearchMessage.visibility = View.INVISIBLE
             }
             updateRecyclerView()
         }
     }
+
     private fun updateRecyclerView() {
         binding.recyclerView.apply {
-            productsAdapter = ProductsAdapter(matchedProduct,
+            productsAdapter = ProductsAdapter(
+                matchedProduct,
                 requireContext(),
                 requireActivity()
             )
             binding.recyclerView.adapter = productsAdapter
-           // productsAdapter!!.notifyDataSetChanged()
+            // productsAdapter!!.notifyDataSetChanged()
         }
     }
 }

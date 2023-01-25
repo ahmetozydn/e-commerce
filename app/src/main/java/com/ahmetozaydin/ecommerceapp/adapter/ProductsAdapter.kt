@@ -21,8 +21,8 @@ import kotlinx.coroutines.*
 
 class ProductsAdapter(
     private val products: List<Product>,
-    val context: Context,
-    val activity: Activity
+    private val context: Context,
+    private val activity: Activity
 ) : RecyclerView.Adapter<ProductsAdapter.PlaceHolder>() {
     private var favoriteDatabase: FavoriteDatabase? = null
     private var favorite: Favorite? = null
@@ -54,36 +54,36 @@ class ProductsAdapter(
         cartDatabase = CartDatabase.invoke(context)
         //Picasso.with(context).load(products[position].thumbnail).into(holder.binding.imageOfProduct)
         holder.binding.buttonAddToCart.setOnClickListener {
-            val toast = Utils()
-            toast.makeToastMessage(context, "Product is added to cart!")
-            GlobalScope.launch {
-                if (cartDatabase?.cartDao()
-                        ?.searchForEntity((holder.absoluteAdapterPosition.plus(1))) != products[position].id
-                    || cartDatabase?.cartDao()?.rowCount() == 0
-                ) {
-                    //INSERT
-                    println("INSERT")
-                    cartDatabase?.cartDao()?.insertEntity(
-                        Cart(
-                            products[position].id,
-                            products[position].title,
-                            products[position].discountPercentage,
-                            products[position].description,
-                            products[position].price,
-                            products[position].rating,
-                            products[position].stock,
-                            products[position].brand,
-                            products[position].thumbnail,
-                            0
+            CoroutineScope(Dispatchers.IO).
+                launch { // Todo(if there is a thread switch to coroutine)
+                    if (cartDatabase?.cartDao()
+                            ?.searchForEntity((holder.absoluteAdapterPosition.plus(1))) != products[position].id
+                        || cartDatabase?.cartDao()?.rowCount() == 0
+                    ) {
+                        //INSERT
+                        println("INSERT")
+                        cartDatabase?.cartDao()?.insertEntity(
+                            Cart(
+                                products[position].id,
+                                products[position].title,
+                                products[position].discountPercentage,
+                                products[position].description,
+                                products[position].price,
+                                products[position].rating,
+                                products[position].stock,
+                                products[position].brand,
+                                products[position].thumbnail,
+                                0,
+                                1
+                            )
                         )
-                    )
-                    println(cartDatabase?.cartDao()?.getAllEntities())
-                } else {
-                    //DELETE
-                    println("DELETE")
-                    cartDatabase?.cartDao()?.delete(holder.absoluteAdapterPosition.plus(1))
-                    println(cartDatabase?.cartDao()?.getAllEntities())
-                }
+                        println(cartDatabase?.cartDao()?.getAllEntities())
+                    } else {
+                        //DELETE
+                        println("DELETE")
+                        cartDatabase?.cartDao()?.delete(holder.absoluteAdapterPosition.plus(1))
+                        println(cartDatabase?.cartDao()?.getAllEntities())
+                    }
             }
 
         }
@@ -96,7 +96,7 @@ class ProductsAdapter(
         favoriteDatabase = FavoriteDatabase.invoke(context) //TODO(make in a coroutine)
         val database = favoriteDatabase?.favoriteDao()
         holder.binding.checkBox.setOnClickListener {
-            GlobalScope.launch{
+            CoroutineScope(Dispatchers.IO).launch{
                 if(holder.binding.checkBox.isChecked){
                     Utils.vibrateDevice(context)
                     favorite = Favorite( //TODO(is there better structure)

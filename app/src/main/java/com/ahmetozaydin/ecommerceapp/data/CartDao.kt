@@ -27,7 +27,12 @@ interface CartDao {
     fun updateEntity(id:Int)
     @Query("SELECT COUNT(*) FROM cart")
     fun rowCount() : Int
-
+    @Query("UPDATE cart SET quantity = :quantity WHERE id = :id")
+    fun updateQuantity(id: Int,quantity:Int)
+    @Query("SELECT quantity FROM cart WHERE id = :id")
+    fun getQuantity(id:Int) : Int
+    @Query("SELECT price FROM cart WHERE id = :id")
+    fun getPrice(id:Int) : Int
     @Query("SELECT * FROM cart")
     fun getCursorAll(): Cursor?
 }

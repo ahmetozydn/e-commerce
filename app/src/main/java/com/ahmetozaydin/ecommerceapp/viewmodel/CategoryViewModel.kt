@@ -19,6 +19,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 class CategoryViewModel(application: Application) : BaseViewModel(application) {
+    //TODO(recommend a better structure to implement retrofit objects, and instance variables should be private?)
     private val disposable = CompositeDisposable() //Low memory usages.
     var categoryList = MutableLiveData<ArrayList<String>>(arrayListOf())
     private val url = "https://dummyjson.com/products/"
@@ -49,6 +50,7 @@ class CategoryViewModel(application: Application) : BaseViewModel(application) {
                             }
                         })
                 )
+
             }
         }
         return categoryList.value
@@ -75,6 +77,32 @@ class CategoryViewModel(application: Application) : BaseViewModel(application) {
                 }
             }
         })
+    }
+    fun getFirstCategoryFromAPI(){
+        println("the function is worked")
+         val api2 = Retrofit
+            .Builder()
+            .baseUrl("https://dummyjson.com/products/category/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .build()
+            .create(ProductsAPI::class.java)
+            launch{
+                disposable.add(
+                    api2.getSmartPhonesFromAPI()
+                        .subscribeOn(Schedulers.newThread())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeWith(object : DisposableSingleObserver<BaseClass>() {
+                            override fun onError(e: Throwable?) {
+                                e?.printStackTrace()
+                            }
+                            override fun onSuccess(value: BaseClass?) {
+                                categorizedProducts.value = value?.products as ArrayList<Product>?
+                                println("inside of onSuccess")
+                            }
+                        })
+                )
+            }
     }
     override fun onCleared() {
         super.onCleared()

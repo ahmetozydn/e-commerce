@@ -1,38 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="product"
+            type="com.ahmetozaydin.ecommerceapp.data.Cart" />
+        <variable
+            name="adapter"
+            type="com.ahmetozaydin.ecommerceapp.adapter.CartAdapter" />
+    </data>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardBackgroundColor="@color/white"
-    app:cardCornerRadius="8dp"
-    app:cardPreventCornerOverlap="true"
-    app:cardElevation="2dp"
-    app:cardUseCompatPadding="true">
-
+    >
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <com.google.android.material.imageview.ShapeableImageView
 
-
-        <ImageView
             android:id="@+id/imageOfProduct"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            app:shapeAppearanceOverlay="@style/roundedImageView"
+            android:downloadUrl="@{product.thumbnail}"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginStart="3dp"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="2dp"
             android:layout_marginBottom="3dp"
             android:scaleType="fitXY"
             android:contentDescription="@string/app_name" />
-
-
         <TextView
             android:id="@+id/textViewProductName"
             android:layout_width="match_parent"
+            android:text="@{String.valueOf(product.title)}"
             android:layout_alignParentTop="true"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -46,13 +50,13 @@
             android:paddingStart="2dp"
             android:paddingEnd="1dp"
             android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
         <!-- Text VIew to display Course Rating -->
         <!-- Image used in present in drawable folder -->
 
-
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/textViewProductName"
@@ -61,10 +65,10 @@
             android:layout_toEndOf="@id/imageOfProduct"
             android:orientation="horizontal">
 
-
             <TextView
                 android:id="@+id/textViewProductPrice"
                 android:layout_width="wrap_content"
+                android:text="@{String.valueOf(product.price*product.quantity)}"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:textColor="@color/green"
@@ -73,9 +77,53 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-
         </androidx.constraintlayout.widget.ConstraintLayout>
+        <LinearLayout
+            android:layout_margin="8dp"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/constraintLayout"
+            android:id="@+id/productQuantityContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/productQuantityMinus"
+                android:padding="2dp"
+                android:layout_margin="5dp"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_minus"
+                />
+            <EditText
+                android:maxLines="1"
+                android:layout_margin="5dp"
+                android:id="@+id/productQuantityEditText"
+                android:background="@drawable/product_quantity_container"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:text="@{String.valueOf(product.quantity)}"
+                android:clickable="false"
+                android:focusable="false"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+
+                />
+
+            <ImageView
+                android:id="@+id/productQuantityPlus"
+                android:padding="2dp"
+                android:layout_margin="5dp"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_plus"
+                 />
+
+
+        </LinearLayout>
 
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
+</layout>

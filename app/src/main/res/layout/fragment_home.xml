@@ -1,58 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.HomeFragment">
+    android:animateLayoutChanges="true">
 
-    <SearchView
-        android:id="@+id/searchBarProduct"
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/collapsingToolBarLayout"
         android:layout_width="match_parent"
+        android:scaleY="0.8"
+        android:scaleX="0.8"
         android:layout_height="?attr/actionBarSize"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="2dp"
         android:layout_marginTop="2dp"
-        android:layout_marginEnd="5dp"
+        android:layout_marginEnd="2dp"
         android:layout_marginBottom="2dp"
-        android:background="@drawable/selector_search_view"
-        android:padding="10dp"
-        android:queryHint="@string/search_for_product"
-        android:queryBackground="@color/white"
-         />
+        android:animateLayoutChanges="true"
+        app:contentInsetStart="0dp"
+        app:contentInsetStartWithNavigation="0dp"
+        app:logoScaleType="centerCrop"
+        app:titleCentered="false">
 
-    <!-- <androidx.recyclerview.widget.RecyclerView
-         android:id="@+id/recyclerViewCategories"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_below="@id/searchBarProduct"
-         android:layout_alignParentStart="true"
-         android:layout_alignParentEnd="true" />-->
+        <SearchView
+            android:id="@+id/searchBarProduct"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@drawable/selector_search_view"
+            android:iconifiedByDefault="false"
+            android:queryHint="@string/search_for_product"
+            android:searchHintIcon="@drawable/ic_category" />
+    </com.google.android.material.appbar.MaterialToolbar>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/collapsingToolBarLayout"
+        android:layout_alignParentBottom="true"
+        android:scrollbarSize="3dp"
+        android:scrollbars="vertical"
+        app:layout_scrollFlags="scroll" />
 
     <LinearLayout
         android:id="@+id/linearLayoutEmptySearchMessage"
         android:layout_width="match_parent"
-        android:gravity="center"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/recyclerView"
         android:layout_alignBottom="@id/recyclerView"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
+        android:gravity="center"
         android:visibility="invisible">
 
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_gravity="center"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:contentDescription="@string/app_name"
             android:src="@drawable/ic_search" /> <!--TODO()-->
-
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:layout_gravity="center"
             android:fontFamily="sans-serif-thin"
             android:gravity="center"
@@ -60,20 +70,6 @@
             android:textSize="18sp"
             android:textStyle="bold"
             android:visibility="visible" />
-
-
     </LinearLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/searchBarProduct"
-        android:layout_alignParentBottom="true"
-        android:scrollbarSize="3dp"
-        android:scrollbars="vertical">
-
-
-    </androidx.recyclerview.widget.RecyclerView>
 
 </RelativeLayout>

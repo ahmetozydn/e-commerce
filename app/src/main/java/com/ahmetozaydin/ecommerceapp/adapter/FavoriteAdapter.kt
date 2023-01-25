@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.ahmetozaydin.ecommerceapp.data.Favorite
 import com.ahmetozaydin.ecommerceapp.databinding.EachFavoriteBinding
+import com.ahmetozaydin.ecommerceapp.model.Product
 import com.ahmetozaydin.ecommerceapp.utils.downloadFromUrl
 import kotlin.math.roundToInt
 
@@ -47,4 +48,13 @@ class FavoriteAdapter(
                 +favoriteList.size)
         return favoriteList.size
     }
+    fun deleteItem(position: Int) {
+        favoriteList.removeAt(position)
+        notifyItemRemoved(position)
+        notifyItemRangeChanged(position, favoriteList.size)
+    }
+    fun getItemInfo(position: Int): Int? {
+        return favoriteList[position].id
+    }
+
 }

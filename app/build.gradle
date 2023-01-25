@@ -34,6 +34,9 @@ android {
     buildFeatures{
         viewBinding  true
     }
+    dataBinding{
+        enabled = true
+    }
 
 }
 
@@ -76,7 +79,10 @@ dependencies {
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
+    implementation"androidx.lifecycle:lifecyle-viewmodel-ktx:2.4.0"
+    implementation"androidx.lifecycle:lifecyle-livedata-ktx:2.4.0"
+    implementation"androidx.lifecycle:lifecyle-runtime-ktx:2.4.0"
 
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
 
     }

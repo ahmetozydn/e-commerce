@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ecommerceapp</string>
+    <string name="app_name">shopie</string>
     <string name="login">Log In</string>
     <string name="email">e-mail</string>
     <string name="e_mail">e-mail</string>
@@ -22,6 +22,6 @@
     <string name="purchase">Purchase</string>
     <string name="wordTotal">Total</string>
     <string name="category">Category</string>
-    <string name="search_for_product">Search for product</string>
     <string name="product_not_found">Product not found!</string>
+    <string name="search_for_product">Search here… <font size="11" /></string>
 </resources>

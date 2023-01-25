@@ -22,5 +22,13 @@
         <item name="android:windowBackground">@drawable/splash_screen</item>
         <item name="android:statusBarColor">@color/orange</item>
     </style>
+    <style name="roundedImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8%</item>
+    </style>
+    <style name="Circular">
+        <item name="color">@color/white</item>
+        <item name="cornerSize">50%</item>
+    </style>
 </resources>
 

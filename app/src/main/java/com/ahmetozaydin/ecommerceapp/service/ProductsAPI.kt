@@ -6,7 +6,6 @@ import io.reactivex.Single
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Url
-import java.util.*
 
 interface ProductsAPI {
     @GET("products?limit=100") //extension
@@ -15,4 +14,6 @@ interface ProductsAPI {
     fun getCategorizedProduct(@Url text : String) : Call<BaseClass>//sınıf adı farklı Single olması gerekirdi
     @GET("categories")
     fun getCategoryFromAPI() : Single<List<String>>
+    @GET("smartphones")
+    fun getSmartPhonesFromAPI() : Single<BaseClass>
 }

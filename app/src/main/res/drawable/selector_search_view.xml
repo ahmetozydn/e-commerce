@@ -1,5 +1,4 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android"> <!--TODO(change the color of search bar)-->
     <item android:drawable="@drawable/background_search_view_default" android:state_focused="true"/>
     <item android:drawable="@drawable/background_search_view_selected" />
-
 </selector>
