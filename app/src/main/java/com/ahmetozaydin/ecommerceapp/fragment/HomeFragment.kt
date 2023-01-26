@@ -109,7 +109,7 @@ class HomeFragment : Fragment(), ProductsAdapter.Listener, CategoryAdapter.Liste
                     }
                     productsAdapter = ProductsAdapter(
                         products,
-                        requireActivity(),
+                        requireContext(),
                         requireActivity()
                     )
                     binding.recyclerView.adapter = productsAdapter

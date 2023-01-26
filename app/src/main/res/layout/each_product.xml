@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+    <data>
+        <variable
+            name="product"
+            type="com.ahmetozaydin.ecommerceapp.model.Product" />
+        <variable
+            name="adapter"
+            type="com.ahmetozaydin.ecommerceapp.adapter.ProductsAdapter" />
+
+    </data>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cardView"
@@ -32,21 +43,20 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imageOfProduct"
-            app:shapeAppearanceOverlay="@style/roundedImageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginStart="2dp"
-            android:minHeight="150dp"
-            android:scaleType="fitXY"
-            android:minWidth="150dp"
-            android:maxWidth="200dp"
-            android:maxHeight="200dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="2dp"
             android:layout_marginBottom="2dp"
             android:contentDescription="@string/app_name"
-            />
+            android:maxWidth="200dp"
+            android:maxHeight="200dp"
+            android:minWidth="150dp"
+            android:minHeight="150dp"
+            android:scaleType="fitXY"
+            app:shapeAppearanceOverlay="@style/roundedImageView" />
 
         <CheckBox
             android:id="@+id/checkBox"
@@ -65,19 +75,19 @@
         <!-- Text View to display Course Name -->
         <TextView
             android:id="@+id/textViewProductName"
-            android:fontFamily="sans-serif"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:paddingStart="1dp"
-            android:maxLines="2"
-            android:lines="2"
-            android:paddingEnd="1dp"
-            android:textAlignment="center"
             android:layout_below="@id/imageOfProduct"
+            android:layout_marginTop="6dp"
+            android:fontFamily="sans-serif"
+            android:lines="2"
+            android:maxLines="2"
+            android:paddingStart="1dp"
+            android:paddingEnd="1dp"
+            android:text="@{String.valueOf(product.title)}"
+            android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="14sp"
-             />
+            android:textSize="14sp" />
 
         <!-- Text VIew to display Course Rating -->
         <!-- Image used in present in drawable folder -->
@@ -85,16 +95,17 @@
             android:id="@+id/textViewProductPrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="@{String.valueOf(product.price)}"
             android:layout_below="@id/textViewProductName"
-            android:layout_marginBottom="6dp"
             android:layout_marginTop="6dp"
-            android:textAlignment="center"
-            android:textSize="12sp"
-            android:paddingStart="1dp"
-            android:paddingEnd="1dp"
+            android:layout_marginBottom="6dp"
             android:drawablePadding="2dp"
             android:fontFamily="sans-serif"
-            android:textColor="@color/green" />
+            android:paddingStart="1dp"
+            android:paddingEnd="1dp"
+            android:textAlignment="center"
+            android:textColor="@color/green"
+            android:textSize="12sp" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonAddToCart"
@@ -119,3 +130,4 @@
             android:textColor="@color/white" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
+</layout>

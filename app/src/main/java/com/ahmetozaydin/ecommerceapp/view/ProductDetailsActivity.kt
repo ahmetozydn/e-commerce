@@ -1,6 +1,8 @@
 package com.ahmetozaydin.ecommerceapp.view
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.*
 import com.ahmetozaydin.ecommerceapp.adapter.ImageAdapter
@@ -18,6 +20,7 @@ class ProductDetailsActivity : AppCompatActivity() {
         val layoutManager = LinearLayoutManager(this,RecyclerView.HORIZONTAL,false)
         binding.recyclerViewAllImages.layoutManager = layoutManager
         val products = intent.getParcelableExtra<Product>("product")
+        Log.i(TAG, "onCreate: $products")
         binding.textViewProductDescription.text = products?.description
         ("Stock: "+products?.stock.toString()).also { binding.textViewProductFeatures.text = it }
         ("$" +products?.price.toString()).also { binding.textViewProductPrice.text = it }

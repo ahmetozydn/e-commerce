@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="eachFavorite"
+            type="com.ahmetozaydin.ecommerceapp.data.Favorite" />
+        <variable
+            name="adapter"
+            type="com.ahmetozaydin.ecommerceapp.adapter.FavoriteAdapter" />
+    </data>
+
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -34,14 +44,15 @@
         <TextView
             android:id="@+id/textViewProductName"
             android:layout_width="match_parent"
-            android:layout_alignParentTop="true"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:text="@{String.valueOf(eachFavorite.title)}"
             android:layout_marginTop="8dp"
             android:layout_toEndOf="@+id/imageOfProduct"
             android:fontFamily="sans-serif"
-            android:maxLines="1"
-            android:layout_alignParentEnd="true"
             android:lines="1"
+            android:maxLines="1"
             android:paddingStart="2dp"
             android:paddingEnd="1dp"
             android:textColor="@color/black"
@@ -52,17 +63,18 @@
         <TextView
             android:id="@+id/textViewProductDescription"
             android:layout_width="match_parent"
-            android:lines="1"
-            android:maxLines="1"
             android:layout_height="wrap_content"
             android:layout_below="@id/textViewProductName"
-            android:layout_marginTop="6dp"
             android:layout_alignParentEnd="true"
+            android:layout_marginTop="6dp"
             android:layout_toEndOf="@+id/imageOfProduct"
             android:drawablePadding="2dp"
             android:fontFamily="sans-serif"
+            android:lines="1"
+            android:maxLines="1"
             android:paddingStart="1dp"
             android:paddingEnd="1dp"
+            android:text="@{String.valueOf(eachFavorite.description)}"
             android:textColor="@color/light_black"
             android:textSize="12sp" />
 
@@ -94,6 +106,7 @@
             <TextView
                 android:id="@+id/textViewRatingCount"
                 android:layout_width="wrap_content"
+                android:text="@{String.valueOf(eachFavorite.rating)}"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:textSize="11sp"
@@ -105,6 +118,7 @@
                 android:id="@+id/textViewProductPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@{String.valueOf(eachFavorite.price)}"
                 android:textColor="@color/green"
                 android:textSize="11sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -139,3 +153,4 @@
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
+</layout>

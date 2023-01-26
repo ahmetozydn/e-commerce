@@ -79,7 +79,6 @@ class CategoryViewModel(application: Application) : BaseViewModel(application) {
         })
     }
     fun getFirstCategoryFromAPI(){
-        println("the function is worked")
          val api2 = Retrofit
             .Builder()
             .baseUrl("https://dummyjson.com/products/category/")

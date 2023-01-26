@@ -4,9 +4,12 @@ package com.ahmetozaydin.ecommerceapp.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
+import com.ahmetozaydin.ecommerceapp.R
 import com.ahmetozaydin.ecommerceapp.data.Favorite
+import com.ahmetozaydin.ecommerceapp.databinding.EachCartBinding
 import com.ahmetozaydin.ecommerceapp.databinding.EachFavoriteBinding
 import com.ahmetozaydin.ecommerceapp.model.Product
 import com.ahmetozaydin.ecommerceapp.utils.downloadFromUrl
@@ -23,8 +26,8 @@ class FavoriteAdapter(
         parent: ViewGroup,
         viewType: Int
     ): PlaceHolder {
-        val binding =
-            EachFavoriteBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = DataBindingUtil.inflate<EachFavoriteBinding>(LayoutInflater.from(parent.context),
+                R.layout.each_favorite, parent, false)
         return PlaceHolder(binding)
     }
 
@@ -35,13 +38,14 @@ class FavoriteAdapter(
         holder.binding.imageOfProduct.downloadFromUrl(favoriteList[position].thumbnail,
             CircularProgressDrawable(context)
         )
-        val double = favoriteList[position].rating
-        val dolarSign = "$"
-        val doubleWithLastTwoDigits = ((double?.times(10.0))?.roundToInt() ?: 0) / 10.0
-        holder.binding.textViewProductName.text = favoriteList[position].title
-        holder.binding.textViewProductDescription.text = favoriteList[position].description
-        (dolarSign + favoriteList[position].price.toString()).also { holder.binding.textViewProductPrice.text = it }
-        holder.binding.textViewRatingCount.text = doubleWithLastTwoDigits.toString()
+        holder.binding.eachFavorite = favoriteList[position]
+        //val double = favoriteList[position].rating
+        //val dolarSign = "$"
+        //val doubleWithLastTwoDigits = ((double?.times(10.0))?.roundToInt() ?: 0) / 10.0
+        //holder.binding.textViewProductName.text = favoriteList[position].title
+        //holder.binding.textViewProductDescription.text = favoriteList[position].description
+        //(dolarSign + favoriteList[position].price.toString()).also { holder.binding.textViewProductPrice.text = it }
+       // holder.binding.textViewRatingCount.text = doubleWithLastTwoDigits.toString()
 }
     override fun getItemCount(): Int {
         println("getItemCount"

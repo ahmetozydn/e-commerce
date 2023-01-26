@@ -5,11 +5,15 @@ import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.ahmetozaydin.ecommerceapp.R
 import com.ahmetozaydin.ecommerceapp.data.Cart
 import com.ahmetozaydin.ecommerceapp.data.CartDatabase
 import com.ahmetozaydin.ecommerceapp.data.Favorite
 import com.ahmetozaydin.ecommerceapp.data.FavoriteDatabase
+import com.ahmetozaydin.ecommerceapp.databinding.EachCartBinding
+import com.ahmetozaydin.ecommerceapp.databinding.EachCategoryBinding
 import com.ahmetozaydin.ecommerceapp.databinding.EachProductBinding
 import com.ahmetozaydin.ecommerceapp.model.Product
 import com.ahmetozaydin.ecommerceapp.utils.Utils
@@ -38,19 +42,20 @@ class ProductsAdapter(
         parent: ViewGroup,
         viewType: Int
     ): PlaceHolder {// layout ile bağlama işlemi, view binding ile
-        val binding = EachProductBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = DataBindingUtil.inflate<EachProductBinding>(LayoutInflater.from(parent.context), R.layout.each_product,parent,false)
         return PlaceHolder(binding)
     }
     override fun onBindViewHolder(
         holder: PlaceHolder,
         position: Int
     ) {
+        holder.binding.product = products[position]
         holder.binding.imageOfProduct.downloadFromUrl(
             products[position].thumbnail,
             placeholderProgressBar(holder.itemView.context)
         )
-        holder.binding.textViewProductName.text = products[position].title.toString()
-        holder.binding.textViewProductPrice.text = "$".also {products[position].price.toString() }
+        //holder.binding.textViewProductName.text = products[position].title.toString()
+        // holder.binding.textViewProductPrice.text = "$".also {products[position].price.toString() }
         cartDatabase = CartDatabase.invoke(context)
         //Picasso.with(context).load(products[position].thumbnail).into(holder.binding.imageOfProduct)
         holder.binding.buttonAddToCart.setOnClickListener {
@@ -168,7 +173,7 @@ class ProductsAdapter(
     override fun onViewAttachedToWindow(holder: PlaceHolder) {
         super.onViewAttachedToWindow(holder)
         runBlocking {
-            GlobalScope.launch {
+            CoroutineScope(Dispatchers.IO).launch {
                 if (favoriteDatabase?.favoriteDao()
                         ?.searchForEntity((holder.absoluteAdapterPosition.plus(1))) == holder.absoluteAdapterPosition.plus(
                         1

@@ -54,6 +54,7 @@ class CategorizedProduct(
                     "")
         }*/
         //Picasso.with(context).load(products[position].thumbnail).into(holder.binding.imageOfProduct)
+        holder.binding.product = products[position]
         Glide.with(context)
             .load(products[position].thumbnail)
             .override(300,300)
