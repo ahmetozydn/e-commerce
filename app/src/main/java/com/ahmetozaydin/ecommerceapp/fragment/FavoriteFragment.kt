@@ -1,5 +1,6 @@
 package com.ahmetozaydin.ecommerceapp.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,19 +11,19 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.ahmetozaydin.ecommerceapp.adapter.CartAdapter
 import com.ahmetozaydin.ecommerceapp.adapter.FavoriteAdapter
 import com.ahmetozaydin.ecommerceapp.data.Favorite
 import com.ahmetozaydin.ecommerceapp.data.FavoriteDatabase
 import com.ahmetozaydin.ecommerceapp.databinding.FragmentFavoriteBinding
+import com.ahmetozaydin.ecommerceapp.model.Product
 import com.ahmetozaydin.ecommerceapp.utils.SwipeHelper
-import com.ahmetozaydin.ecommerceapp.viewmodel.CartViewModel
+import com.ahmetozaydin.ecommerceapp.view.ProductDetailsActivity
 import com.ahmetozaydin.ecommerceapp.viewmodel.FavoriteFragmentViewModel
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 
 
-class FavoriteFragment : Fragment() {
+class FavoriteFragment : Fragment() , FavoriteAdapter.Listener{
     private lateinit var binding: FragmentFavoriteBinding
     private var favoriteAdapter: FavoriteAdapter? = null
     private var favoriteList = ArrayList<Favorite>()
@@ -39,31 +40,9 @@ class FavoriteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[FavoriteFragmentViewModel::class.java]
-        val layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
-        binding.favoriteRecyclerView.layoutManager = layoutManager
         favoriteDatabase = context?.let { FavoriteDatabase.invoke(it) }
-        GlobalScope.
-            launch {
-                println("GlobalScope is worked")
-                favoriteDatabase?.favoriteDao()?.getAllEntities()!!.forEach {
-                    favoriteList.add(it)
-                }
-                activity?.runOnUiThread {
-                    if (favoriteList.isEmpty()) {
-                        println("is empty? " + favoriteList.size)
-                        binding.relativeLayoutFavorite.visibility = View.VISIBLE
-                        binding.favoriteRecyclerView.visibility = View.INVISIBLE
-                    } else {
-                        binding.relativeLayoutFavorite.visibility =
-                            View.INVISIBLE// TODO(Can't create handler inside thread)
-                        binding.favoriteRecyclerView.visibility = View.VISIBLE
-                    }
-                }
-
-            }
-        binding.progressBar.visibility = View.GONE
-        favoriteAdapter = FavoriteAdapter(favoriteList, requireContext())
-        binding.favoriteRecyclerView.adapter = favoriteAdapter
+        binding.progressBar.visibility = View.VISIBLE
+        viewModel.getDataFromRoom(requireContext())
 
         val itemTouchHelper = ItemTouchHelper(object : SwipeHelper(binding.favoriteRecyclerView) {
             override fun instantiateUnderlayButton(position: Int): List<UnderlayButton> {
@@ -79,12 +58,28 @@ class FavoriteFragment : Fragment() {
         liveDataObserver()
     }
 
+    private fun initializeRecyclerView(favorites: List<Favorite>) {
+        val layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
+        binding.favoriteRecyclerView.layoutManager = layoutManager
+        favoriteAdapter = FavoriteAdapter(favorites as ArrayList<Favorite>, requireContext())
+        binding.favoriteRecyclerView.adapter = favoriteAdapter
+    }
+
     private fun liveDataObserver() {
-        viewModel.isListEmpty.observe(viewLifecycleOwner, Observer {
-            if (it) {
-                binding.textViewEmptyListMessage.visibility = View.VISIBLE
+        viewModel.isListEmpty.observe(viewLifecycleOwner, Observer { isEmpty ->
+            if (isEmpty) {
+                binding.emptyList.visibility = View.VISIBLE
             } else {
-                binding.textViewEmptyListMessage.visibility = View.GONE
+                binding.emptyList.visibility = View.INVISIBLE
+            }
+        })
+        viewModel.favorites.observe(viewLifecycleOwner, Observer {
+            binding.progressBar.visibility = View.INVISIBLE
+            if (it.isEmpty()) {
+                binding.emptyList.visibility = View.VISIBLE
+            } else {
+                initializeRecyclerView(it)
+                binding.emptyList.visibility = View.INVISIBLE
             }
         })
     }
@@ -105,6 +100,7 @@ class FavoriteFragment : Fragment() {
                 }
             })
     }
+
     private fun addToCartButton(position: Int): SwipeHelper.UnderlayButton {
         return SwipeHelper.UnderlayButton(
             requireContext(),
@@ -115,9 +111,20 @@ class FavoriteFragment : Fragment() {
                 override fun onClick() {
                     val idOfProduct = favoriteAdapter?.getItemInfo(position)
                     if (idOfProduct != null) {
-                        viewModel.addItemToRoom(idOfProduct,requireContext())
+                        viewModel.addItemToRoom(idOfProduct, requireContext())
                     }
                 }
             })
+    }
+
+    override fun onItemClick(products: Product) {
+        favoriteList.forEach {
+            if(it.id == products.id){
+                var item = it.id
+            }
+        }
+        val intent = Intent(context, ProductDetailsActivity::class.java)
+        intent.putExtra("product", favoriteList)
+        context?.startActivity(intent)
     }
 }

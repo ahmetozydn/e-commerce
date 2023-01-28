@@ -15,11 +15,13 @@
         android:layout_height="match_parent" />
 
     <RelativeLayout
-        android:id="@+id/relativeLayoutFavorite"
+        android:visibility="invisible"
+        android:id="@+id/emptyList"
         android:layout_width="wrap_content"
         android:layout_gravity="center"
         android:layout_height="wrap_content">
         <ProgressBar
+            android:visibility="invisible"
             android:id="@+id/progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

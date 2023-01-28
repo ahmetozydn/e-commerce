@@ -7,8 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ahmetozaydin.ecommerceapp.R
 import com.ahmetozaydin.ecommerceapp.databinding.EachImageBinding
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 
 class ImageAdapter(private val imageList : ArrayList<String>, val context: Context) : RecyclerView.Adapter<ImageAdapter.PlaceHolder>() {
+
     class PlaceHolder(val binding : EachImageBinding): RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaceHolder {

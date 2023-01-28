@@ -24,9 +24,8 @@ import kotlinx.coroutines.*
 
 
 class ProductsAdapter(
-    private val products: List<Product>,
+    private val products: ArrayList<Product>,
     private val context: Context,
-    private val activity: Activity
 ) : RecyclerView.Adapter<ProductsAdapter.PlaceHolder>() {
     private var favoriteDatabase: FavoriteDatabase? = null
     private var favorite: Favorite? = null
@@ -78,7 +77,7 @@ class ProductsAdapter(
                                 products[position].stock,
                                 products[position].brand,
                                 products[position].thumbnail,
-                                0,
+                                true,
                                 1
                             )
                         )
@@ -101,17 +100,27 @@ class ProductsAdapter(
         favoriteDatabase = FavoriteDatabase.invoke(context) //TODO(make in a coroutine)
         val database = favoriteDatabase?.favoriteDao()
         holder.binding.checkBox.setOnClickListener {
+
             CoroutineScope(Dispatchers.IO).launch{
+                var images = ""
+                products[position].images?.forEach {
+                    images += "$it "
+                }
                 if(holder.binding.checkBox.isChecked){
                     Utils.vibrateDevice(context)
                     favorite = Favorite( //TODO(is there better structure)
-                        products[position].id,
-                        products[position].title,
-                        products[position].description,
-                        products[position].price,
-                        products[position].rating,
-                        products[position].thumbnail,
-                        0
+                            products[position].id,
+                            products[position].title,
+                            products[position].description,
+                            products[position].price,
+                            products[position].rating,
+                            products[position].stock,
+                            products[position].discountPercentage,
+                            products[position].category,
+                            products[position].brand,
+                            products[position].thumbnail,
+                            images,
+                            true
                     )
                     database?.insertEntity(favorite!!)
                 }else{
@@ -172,7 +181,6 @@ class ProductsAdapter(
     }
     override fun onViewAttachedToWindow(holder: PlaceHolder) {
         super.onViewAttachedToWindow(holder)
-        runBlocking {
             CoroutineScope(Dispatchers.IO).launch {
                 if (favoriteDatabase?.favoriteDao()
                         ?.searchForEntity((holder.absoluteAdapterPosition.plus(1))) == holder.absoluteAdapterPosition.plus(
@@ -184,7 +192,6 @@ class ProductsAdapter(
                     }
                 }
             }
-        }
     }
     override fun onViewRecycled(holder: PlaceHolder) {
         super.onViewRecycled(holder)

@@ -11,16 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ahmetozaydin.ecommerceapp.adapter.CategoryAdapter
 import com.ahmetozaydin.ecommerceapp.adapter.ProductsAdapter
 import com.ahmetozaydin.ecommerceapp.databinding.FragmentHomeBinding
-import com.ahmetozaydin.ecommerceapp.model.BaseClass
 import com.ahmetozaydin.ecommerceapp.model.Product
-import com.ahmetozaydin.ecommerceapp.service.ProductsAPI
-import com.ahmetozaydin.ecommerceapp.view.MainActivity.Companion.BASE_URL
 import com.ahmetozaydin.ecommerceapp.viewmodel.HomeViewModel
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
 
 
@@ -38,7 +30,7 @@ class HomeFragment : Fragment(), ProductsAdapter.Listener, CategoryAdapter.Liste
         binding = FragmentHomeBinding.inflate(layoutInflater)
         val layoutManager = GridLayoutManager(activity, 2)// oluyorsa layout managerları birleştir.
         binding.recyclerView.layoutManager = layoutManager
-        fetchData()
+        //fetchData()
         binding.searchBarProduct.onActionViewExpanded()
         binding.searchBarProduct.clearFocus()
         return binding.root
@@ -48,6 +40,19 @@ class HomeFragment : Fragment(), ProductsAdapter.Listener, CategoryAdapter.Liste
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
         //viewModel.getDataFromUrl()
+        viewModel.getData(requireContext())
+        viewModel.products.observe(viewLifecycleOwner, androidx.lifecycle.Observer { products ->
+            products.let {
+                productsAdapter = products?.let { it1 ->
+                    ProductsAdapter(
+                        it1,
+                        requireContext() // TODO Fragment HomeFragment not attached to a context.
+                    )
+                }!!
+                binding.recyclerView.adapter = productsAdapter
+            }
+
+        })
         binding.searchBarProduct.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 search(query)
@@ -79,6 +84,7 @@ class HomeFragment : Fragment(), ProductsAdapter.Listener, CategoryAdapter.Liste
         })
     }
 
+/*
     private fun fetchData() {
         val retrofit = Retrofit
             .Builder()
@@ -109,19 +115,20 @@ class HomeFragment : Fragment(), ProductsAdapter.Listener, CategoryAdapter.Liste
                     }
                     productsAdapter = ProductsAdapter(
                         products,
-                        requireContext(),
-                        requireActivity()
+                        requireContext() // TODO Fragment HomeFragment not attached to a context.
                     )
                     binding.recyclerView.adapter = productsAdapter
                     //val horizontalLayoutManager: RecyclerView.LayoutManager =
                     //   LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     //binding.recyclerViewCategories.layoutManager = horizontalLayoutManager
                     //val categories = ArrayList<String>()
-                    /*products.forEach {
+                    */
+/*products.forEach {
                         if (!categories.contains(it.category) || categories.size == 0) {
                             it.category?.let { it1 -> categories.add(it1) }
                         }
-                    }*/
+                    }*//*
+
                     //categoryAdapter = context?.let { CategoryAdapter(products, categories, it) }
                     //binding.recyclerViewCategories.adapter = categoryAdapter
                     // binding.searchBarProduct.isSubmitButtonEnabled = true
@@ -129,6 +136,7 @@ class HomeFragment : Fragment(), ProductsAdapter.Listener, CategoryAdapter.Liste
             })
         })
     }
+*/
 
     /* fun loadImageFromWeb(url: ArrayList<Product>?) {
           try {
@@ -188,8 +196,7 @@ class HomeFragment : Fragment(), ProductsAdapter.Listener, CategoryAdapter.Liste
         binding.recyclerView.apply {
             productsAdapter = ProductsAdapter(
                 matchedProduct,
-                requireContext(),
-                requireActivity()
+                requireContext()
             )
             binding.recyclerView.adapter = productsAdapter
             // productsAdapter!!.notifyDataSetChanged()

@@ -16,7 +16,7 @@ interface FavoriteDao {
     @Query("SELECT * FROM favorite")
    /* var liveUsers: LiveData<MutableList<User?>?>? =
         rawDao.getUsers(SimpleSQLiteQuery("SELECT * FROM User ORDER BY name DESC"))*/
-     fun getAllEntities() : List<Favorite>
+    fun getAllEntities() : List<Favorite>
     @Query("DELETE FROM favorite WHERE id =  :id")
     suspend fun delete(id: Int) : Int
     @Query("SELECT id FROM favorite WHERE id =  :id")
@@ -25,7 +25,8 @@ interface FavoriteDao {
     fun updateEntity(id:Int)
     @Query("SELECT COUNT(*) FROM favorite")
     fun rowCount() : Int
-
+    @Query("SELECT isChecked FROM favorite WHERE id = :id")
+    fun isAddedToFavorite(id : Int) : Boolean
     @Query("SELECT * FROM favorite")
     fun getCursorAll(): Cursor?
 }

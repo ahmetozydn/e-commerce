@@ -13,7 +13,9 @@ import com.ahmetozaydin.ecommerceapp.R
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
+
 class Utils {
+
     companion object {
         fun vibrateDevice(context: Context) {
             val vibrator = getSystemService(context, Vibrator::class.java)

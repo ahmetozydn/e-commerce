@@ -10,9 +10,6 @@ import com.ahmetozaydin.ecommerceapp.fragment.*
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var homeFragment = HomeFragment()
-    private val favoritesFragment = FavoriteFragment()
-    private var cartFragment = CartFragment()
-    private var profileFragment = ProfileFragment()
     companion object {
         const val BASE_URL = "https://dummyjson.com/"
     }

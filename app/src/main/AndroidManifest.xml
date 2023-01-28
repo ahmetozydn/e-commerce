@@ -22,8 +22,9 @@
             android:exported="false" >
         </activity>
         <activity
-            android:theme="@style/Theme.Ecommerceapp.NoActionBar"
+            android:theme="@style/Theme.Ecommerceapp.Light"
             android:name=".view.ProductDetailsActivity"
+            android:parentActivityName=".view.MainActivity"
             android:exported="false" />
         <activity
             android:theme="@style/SplashScreenTheme"

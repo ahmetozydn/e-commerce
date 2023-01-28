@@ -1,10 +1,13 @@
 package com.ahmetozaydin.ecommerceapp.data
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 @Entity(tableName = "favorite")
 data class Favorite(
     @SerializedName("id")
@@ -22,15 +25,30 @@ data class Favorite(
     @SerializedName("rating")
     @ColumnInfo(name = "rating")
     val rating: Double? = null,
+    @SerializedName("stock")
+    @ColumnInfo(name = "stock")
+    val stock : Int?,
+    @SerializedName("discountPercentage")
+    @ColumnInfo(name = "discountPercentage")
+    val discountPercentage: Double? = null,
+    @SerializedName("brand")
+    @ColumnInfo(name = "brand")
+    val brand : String?,
+    @SerializedName("category")
+    @ColumnInfo(name = "category")
+    val category: String? = null,
     @SerializedName("thumbnail")
     @ColumnInfo(name = "thumbnail")
     val thumbnail: String? = null,
+    @SerializedName("images")
+    @ColumnInfo(name = "images")
+    val images: String? = null,
     @SerializedName("isChecked")
     @ColumnInfo(name = "isChecked")
-    val isChecked: Int,
+    val isChecked: Boolean, // TODO change here to BOOLEAN
     @PrimaryKey(autoGenerate = true)
     var uuid: Int = 0
-)
+) : Parcelable
 /*
 @SerializedName("id")
 @ColumnInfo(name = "id")

@@ -35,4 +35,7 @@ interface CartDao {
     fun getPrice(id:Int) : Int
     @Query("SELECT * FROM cart")
     fun getCursorAll(): Cursor?
+    @Query("SELECT isAddedToCart FROM cart WHERE id = :id")
+    fun isAddedToCart(id : Int) : Boolean
+
 }
