@@ -7,6 +7,9 @@
         <variable
             name="adapter"
             type="com.ahmetozaydin.ecommerceapp.adapter.CartAdapter" />
+        <variable
+            name="viewModel"
+            type="com.ahmetozaydin.ecommerceapp.viewmodel.CartViewModel" />
     </data>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -68,9 +71,9 @@
             <TextView
                 android:id="@+id/textViewProductPrice"
                 android:layout_width="wrap_content"
-                android:text="@{String.valueOf(product.price*product.quantity)}"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:text="@{`$`+String.valueOf(product.price*product.quantity)}"
                 android:textColor="@color/green"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"

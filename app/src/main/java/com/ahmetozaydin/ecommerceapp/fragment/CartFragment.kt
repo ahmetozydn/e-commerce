@@ -1,6 +1,9 @@
 package com.ahmetozaydin.ecommerceapp.fragment
 
+import android.content.ContentValues.TAG
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +17,9 @@ import com.ahmetozaydin.ecommerceapp.adapter.CartAdapter
 import com.ahmetozaydin.ecommerceapp.data.CartDatabase
 import com.ahmetozaydin.ecommerceapp.databinding.FragmentCartBinding
 import com.ahmetozaydin.ecommerceapp.utils.SwipeHelper
+import com.ahmetozaydin.ecommerceapp.view.ProductDetailsActivity
 import com.ahmetozaydin.ecommerceapp.viewmodel.CartViewModel
+import com.stripe.android.PaymentConfiguration
 import kotlinx.coroutines.*
 
 
@@ -33,6 +38,10 @@ class CartFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        PaymentConfiguration.init(
+            requireActivity(),
+            "pk_test_qblFNYngBkEdjEZ16jxxoWSM"
+        )
         // binding.recyclerViewCart.layoutManager = LinearLayoutManager(context,RecyclerView.VERTICAL,false)
         viewModel = ViewModelProvider(this)[CartViewModel::class.java]
 
@@ -79,6 +88,15 @@ class CartFragment : Fragment() {
                     binding.emptyListMessage.visibility = View.VISIBLE
                 } else {
                     binding.emptyListMessage.visibility = View.INVISIBLE
+                }
+            })
+            product.observeForever(Observer {
+                Log.i(TAG, "viewModelObserver: inside of observer")
+                it.let {
+                    Log.i(TAG, "viewModelObserver: $it")
+                    val intent = Intent(context, ProductDetailsActivity::class.java)
+                    intent.putExtra("product", it)
+                    context?.startActivity(intent)
                 }
             })
 

@@ -1,8 +1,10 @@
 package com.ahmetozaydin.ecommerceapp.adapter
 
 
+import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -10,11 +12,17 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.ahmetozaydin.ecommerceapp.R
 import com.ahmetozaydin.ecommerceapp.data.Favorite
+import com.ahmetozaydin.ecommerceapp.data.ImageDatabase
+import com.ahmetozaydin.ecommerceapp.data.ProductDatabase
 import com.ahmetozaydin.ecommerceapp.databinding.EachCartBinding
 import com.ahmetozaydin.ecommerceapp.databinding.EachFavoriteBinding
 import com.ahmetozaydin.ecommerceapp.model.Product
 import com.ahmetozaydin.ecommerceapp.utils.downloadFromUrl
 import com.ahmetozaydin.ecommerceapp.view.ProductDetailsActivity
+import com.ahmetozaydin.ecommerceapp.viewmodel.CartViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
 class FavoriteAdapter(
@@ -43,12 +51,20 @@ class FavoriteAdapter(
             CircularProgressDrawable(context)
         )
         holder.binding.eachFavorite = favoriteList[position]
-        holder.itemView.setOnClickListener {
-            //val item = favoriteList[position]
-            //val product=Product(item.id,item.title,item.description,item.price,item.discountPercentage,item.rating,item.stock,item.brand,item.category,item.thumbnail,ArrayList())
-            //val intent = Intent(context, ProductDetailsActivity::class.java)
-            //intent.putExtra("product", product)
-            //context.startActivity(intent)
+        holder.itemView.setOnClickListener {// TODO migrate to data binding and MVVM
+                val id = favoriteList[position].id
+                CoroutineScope(Dispatchers.IO).launch() {
+                    val images = ImageDatabase(context = context).imageDao().getRecord(id!!)
+                    val item = ProductDatabase(context).productDao().getRecord(id)
+                    val product = Product(item.id,item.title,item.description,item.price,item.discountPercentage,item.rating,item.stock,item.brand,item.category,item.thumbnail,images)
+                    val intent = Intent(context, ProductDetailsActivity::class.java)
+                    intent.putExtra("product", product)
+                    context.startActivity(intent)
+                }
+
+               // Log.i(ContentValues.TAG, "onBindViewHolder: ${favoriteList[position].id}")
+                //val viewModel = CartViewModel()
+                //viewModel.onViewClicked(context, favoriteList[position].id!!) // TODO viewmodel isn't triggered
         }
         //val double = favoriteList[position].rating
         //val dolarSign = "$"

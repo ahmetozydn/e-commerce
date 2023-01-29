@@ -1,10 +1,7 @@
 package com.ahmetozaydin.ecommerceapp.view
 
-import android.R
 import android.os.Bundle
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.NavUtils
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -26,14 +23,11 @@ class ProductDetailsActivity : AppCompatActivity() {
     private lateinit var imageAdapter: ImageAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //setTheme(com.ahmetozaydin.ecommerceapp.R.style.Theme_Ecommerceapp_Light)
 
         binding = ActivityProductDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val products = intent.getParcelableExtra<Product>("product")
-        val favoriteId = intent.getIntExtra("favoriteId", 0)
         if (products != null) {
             products.images?.forEach {
                 imageList.add(it)
@@ -50,7 +44,9 @@ class ProductDetailsActivity : AppCompatActivity() {
             ("$" + products?.price.toString()).also { textViewProductPrice.text = it }
             textViewProductName.text = products?.title
             ratingBar.rating = products?.rating!!.toString().toFloat()
-
+            binding.backButton.setOnClickListener {
+                finish()
+            }
         }
 
 
@@ -184,7 +180,7 @@ class ProductDetailsActivity : AppCompatActivity() {
         PagerSnapHelper().attachToRecyclerView(binding.recyclerViewAllImages)
 
     }
-
+/*
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.home -> {
@@ -198,5 +194,5 @@ class ProductDetailsActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
-    }
+    }*/
 }

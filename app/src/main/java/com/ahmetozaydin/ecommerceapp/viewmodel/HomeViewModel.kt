@@ -1,5 +1,6 @@
 package com.ahmetozaydin.ecommerceapp.viewmodel
 
+import android.app.Application
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.util.Log
@@ -27,11 +28,11 @@ class HomeViewModel : ViewModel() {
     private val _products = MutableLiveData<ArrayList<Product>?>()
     val products get() = _products
     private var customPreferences = CustomSharedPreferences()
-    private var refreshTime = 0.1 * 60 * 1000 * 1000 * 1000L
+    private var refreshTime = 0.01 * 60 * 1000 * 1000 * 1000L
 
     fun getData(context: Context) {
         val updateTime = customPreferences.getTime()
-        Log.i(TAG, "$refreshTime  getData: "+(System.nanoTime() - updateTime!!))
+        //Log.i(TAG, "$refreshTime  getData: "+(System.nanoTime() - updateTime!!))
         if (updateTime != null && updateTime != 0L && System.nanoTime() - updateTime < refreshTime) {
             getDataFromSQLite(context)
             Toast.makeText(context,"Products From SQLite",Toast.LENGTH_LONG).show()
@@ -58,14 +59,16 @@ class HomeViewModel : ViewModel() {
                 response: Response<BaseClass>
             ) {
                 response.body()?.let {
+                    println("onResponse is worked")
+                    it.products?.let { it1 -> storeInSQLite(context, it1 as ArrayList<Product>) }
                     _products.postValue(it.products as ArrayList<Product>?)
-                    it.products?.let { it1 -> storeInSQLite(context, it1) }
                 }
             }
         })
     }
 
     fun storeInSQLite(context: Context, products: ArrayList<Product>) {
+        println("storeInSQLLite")
         viewModelScope.launch {
             val productDb = ProductDatabase.invoke(context).productDao()
             val imageDb = ImageDatabase.invoke(context).imageDao()
@@ -83,9 +86,10 @@ class HomeViewModel : ViewModel() {
                 }
             }
         }
+        customPreferences.saveTime(System.nanoTime())
     }
     private fun getDataFromSQLite(context: Context) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             val productDb = ProductDatabase(context).productDao().getAllRecords()
             val imageDb = ImageDatabase(context).imageDao().getAllRecords()
             val products1 = arrayListOf<Product>()
@@ -100,6 +104,5 @@ class HomeViewModel : ViewModel() {
             Toast.makeText(context,"Products From SQLite",Toast.LENGTH_LONG).show()
             _products.postValue(products1)
         }
-        customPreferences.saveTime(System.nanoTime())
     }
 }

@@ -16,4 +16,6 @@ interface ProductDao {
     suspend fun deleteAllRecords()
     @Query(value = "SELECT * FROM product")
     suspend fun getAllRecords(): List<Product>
+    @Query(value = "SELECT * FROM product WHERE id = :id")
+    suspend fun getRecord(id : Int) : Product
 }

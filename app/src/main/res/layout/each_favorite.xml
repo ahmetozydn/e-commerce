@@ -106,8 +106,8 @@
             <TextView
                 android:id="@+id/textViewRatingCount"
                 android:layout_width="wrap_content"
-                android:text="@{String.valueOf(eachFavorite.rating)}"
                 android:layout_height="wrap_content"
+                android:text="@{String.valueOf(eachFavorite.rating)}"
                 android:textColor="@color/black"
                 android:textSize="11sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -118,7 +118,7 @@
                 android:id="@+id/textViewProductPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{String.valueOf(eachFavorite.price)}"
+                android:text="@{`$`+String.valueOf(eachFavorite.price)}"
                 android:textColor="@color/green"
                 android:textSize="11sp"
                 app:layout_constraintBottom_toBottomOf="parent"

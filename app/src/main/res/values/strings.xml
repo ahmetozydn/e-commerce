@@ -24,4 +24,5 @@
     <string name="category">Category</string>
     <string name="product_not_found">Product not found!</string>
     <string name="search_for_product">Search here… <font size="11" /></string>
+    <string name="no_internet_connection">There is no internet connection!</string>
 </resources>

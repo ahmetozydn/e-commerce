@@ -1,6 +1,8 @@
 package com.ahmetozaydin.ecommerceapp.viewmodel
 
+import android.content.ContentValues.TAG
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,7 +10,10 @@ import androidx.lifecycle.viewModelScope
 import com.ahmetozaydin.ecommerceapp.adapter.CartAdapter
 import com.ahmetozaydin.ecommerceapp.data.Cart
 import com.ahmetozaydin.ecommerceapp.data.CartDatabase
+import com.ahmetozaydin.ecommerceapp.data.ImageDatabase
+import com.ahmetozaydin.ecommerceapp.data.ProductDatabase
 import com.ahmetozaydin.ecommerceapp.databinding.FragmentCartBinding
+import com.ahmetozaydin.ecommerceapp.model.Product
 import kotlinx.coroutines.*
 class CartViewModel() : ViewModel() {
     private val viewModelJob = SupervisorJob()
@@ -22,6 +27,8 @@ class CartViewModel() : ViewModel() {
     private var _totalAmounth = MutableLiveData<Int>()
     val totalAmounth: LiveData<Int> get() = _totalAmounth
     private lateinit var cartAdapter: CartAdapter
+    private var _product = MutableLiveData<Product?>()
+    val product get() = _product
 
     /*init {
          cartDao = CartDatabase.invoke(context).cartDao()
@@ -91,6 +98,23 @@ class CartViewModel() : ViewModel() {
             holder.binding.textViewProductPrice.text = (quantity * price).toString()
         }
     }
+    fun onViewClicked(context : Context, id : Int) {
+        viewModelScope.launch() {
+            Log.i(TAG, "getClickedEntity: $id")
+            val images = ImageDatabase(context = context).imageDao().getRecord(id)
+            val item = ProductDatabase(context).productDao().getRecord(id)
+            val product1 = Product(item.id,item.title,item.description,item.price,item.discountPercentage,item.rating,item.stock,item.brand,item.category,item.thumbnail,images)
+            _product.value = product1
+            Log.i(TAG, "onViewClicked: the value of product is : $product1")
+            Log.i(TAG, "onViewClicked: ${_product.value}")
+            Log.i(TAG, "onViewClicked: ${product.value}")
+
+        }
+
+
+    }
+
+
     fun getTotalAmount(): LiveData<Int>{
         return _totalAmounth
     }
@@ -99,5 +123,6 @@ class CartViewModel() : ViewModel() {
         super.onCleared()
         viewModelJob.cancel()
     }
+
 
 }

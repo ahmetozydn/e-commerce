@@ -11,6 +11,7 @@
         <entry key="..\:/Users/ahmet/AndroidStudioProjects/ecommerceapp/app/src/main/res/drawable/bottom_navigation_view.xml" value="0.2945" />
         <entry key="..\:/Users/ahmet/AndroidStudioProjects/ecommerceapp/app/src/main/res/drawable/custom_email_icon.xml" value="0.3585" />
         <entry key="..\:/Users/ahmet/AndroidStudioProjects/ecommerceapp/app/src/main/res/drawable/custom_input.xml" value="0.3445" />
+        <entry key="..\:/Users/ahmet/AndroidStudioProjects/ecommerceapp/app/src/main/res/drawable/ic_back.xml" value="0.3505" />
         <entry key="..\:/Users/ahmet/AndroidStudioProjects/ecommerceapp/app/src/main/res/drawable/ic_cart.xml" value="0.26" />
         <entry key="..\:/Users/ahmet/AndroidStudioProjects/ecommerceapp/app/src/main/res/drawable/ic_cart_filled.xml" value="0.288" />
         <entry key="..\:/Users/ahmet/AndroidStudioProjects/ecommerceapp/app/src/main/res/drawable/ic_category.xml" value="0.288" />
@@ -46,7 +47,7 @@
         <entry key="..\:/Users/ahmet/AndroidStudioProjects/ecommerceapp/app/src/main/res/drawable/splash_screen.xml" value="0.3625" />
         <entry key="..\:/Users/ahmet/AndroidStudioProjects/ecommerceapp/app/src/main/res/layout/activity_category.xml" value="0.3625" />
         <entry key="..\:/Users/ahmet/AndroidStudioProjects/ecommerceapp/app/src/main/res/layout/activity_log_in.xml" value="0.33" />
-        <entry key="..\:/Users/ahmet/AndroidStudioProjects/ecommerceapp/app/src/main/res/layout/activity_main.xml" value="0.5" />
+        <entry key="..\:/Users/ahmet/AndroidStudioProjects/ecommerceapp/app/src/main/res/layout/activity_main.xml" value="0.4650112866817156" />
         <entry key="..\:/Users/ahmet/AndroidStudioProjects/ecommerceapp/app/src/main/res/layout/activity_product_details.xml" value="0.5" />
         <entry key="..\:/Users/ahmet/AndroidStudioProjects/ecommerceapp/app/src/main/res/layout/activity_test.xml" value="0.3625" />
         <entry key="..\:/Users/ahmet/AndroidStudioProjects/ecommerceapp/app/src/main/res/layout/activity_view_product_details.xml" value="0.3625" />

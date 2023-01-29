@@ -1,29 +1,35 @@
 package com.ahmetozaydin.ecommerceapp.adapter
 
 
+import android.content.ContentValues.TAG
 import android.content.Context
+import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.RecyclerView
 import com.ahmetozaydin.ecommerceapp.R
 import com.ahmetozaydin.ecommerceapp.data.Cart
 import com.ahmetozaydin.ecommerceapp.data.CartDatabase
+import com.ahmetozaydin.ecommerceapp.data.ImageDatabase
+import com.ahmetozaydin.ecommerceapp.data.ProductDatabase
 import com.ahmetozaydin.ecommerceapp.databinding.EachCartBinding
 import com.ahmetozaydin.ecommerceapp.model.Product
-import com.ahmetozaydin.ecommerceapp.utils.downloadFromUrl
-import com.ahmetozaydin.ecommerceapp.utils.placeholderProgressBar
+import com.ahmetozaydin.ecommerceapp.view.ProductDetailsActivity
 import com.ahmetozaydin.ecommerceapp.viewmodel.CartViewModel
-import kotlinx.coroutines.*
-import kotlin.text.Typography.dollar
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class CartAdapter(
     private val cartList: ArrayList<Cart>,
     val context: Context,
     val database: CartDatabase
 ) : RecyclerView.Adapter<CartAdapter.PlaceHolder>() {
+
     interface Listener {
         fun onItemClick(products: Product)//service : Service de alabilir.
     }
@@ -45,6 +51,7 @@ class CartAdapter(
         holder: PlaceHolder,
         position: Int
     ) {
+
         holder.binding.product = cartList[position]
         /*with(holder){
             with(cartList[position]){
@@ -57,6 +64,22 @@ class CartAdapter(
         holder.binding.productQuantityMinus.setOnClickListener {
             println("minus")
             changeProductQuantity(false, holder)
+        }
+       holder.itemView.setOnClickListener {
+           val id = cartList[position].id
+           CoroutineScope(Dispatchers.IO).launch() {
+               val images = ImageDatabase(context = context).imageDao().getRecord(id!!)
+               val item = ProductDatabase(context).productDao().getRecord(id)
+               val product1 = Product(item.id,item.title,item.description,item.price,item.discountPercentage,item.rating,item.stock,item.brand,item.category,item.thumbnail,images)
+               Log.i(TAG, "onViewClicked: the value of product is : $product1")
+               val intent = Intent(context, ProductDetailsActivity::class.java)
+               intent.putExtra("product", product1)
+               context.startActivity(intent)
+           }
+
+            Log.i(TAG, "onBindViewHolder: ${cartList[position].id}")
+            val viewModel = CartViewModel()
+             viewModel.onViewClicked(context, cartList[position].id!!) // TODO viewmodel isn't triggered
         }
         holder.binding.productQuantityPlus.setOnClickListener {
             println("plus")
