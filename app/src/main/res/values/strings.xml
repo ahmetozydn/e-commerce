@@ -6,8 +6,8 @@
     <string name="signup">sign up</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="signinanonymously">Sign In Anonymously</string>
-    <string name="signingoogle">Sign In Google</string>
+    <string name="sign_in_anonymously">Sign-in Anonymously</string>
+    <string name="continue_with_google">Continue with Google</string>
     <string name="or">OR</string>
     <string name="home">Home</string>
     <string name="favorite">Favorite</string>
@@ -25,4 +25,5 @@
     <string name="product_not_found">Product not found!</string>
     <string name="search_for_product">Search here… <font size="11" /></string>
     <string name="no_internet_connection">There is no internet connection!</string>
+    <string name="discover">Discover</string>
 </resources>

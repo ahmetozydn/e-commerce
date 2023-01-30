@@ -2,10 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/action_home"
-        android:icon="@drawable/ic_home"
+        android:icon="@drawable/ic_shop"
         android:checked="true"
         android:enabled="true"
-        android:title="@string/home" />
+        android:title="@string/discover" />
     <item
         android:id="@+id/action_category"
         android:enabled="true"

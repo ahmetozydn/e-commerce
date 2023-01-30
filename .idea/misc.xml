@@ -22,6 +22,7 @@
         <entry key="..\:/Users/ahmet/AndroidStudioProjects/ecommerceapp/app/src/main/res/drawable/ic_launch_screen.xml" value="0.3635" />
         <entry key="..\:/Users/ahmet/AndroidStudioProjects/ecommerceapp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3635" />
         <entry key="..\:/Users/ahmet/AndroidStudioProjects/ecommerceapp/app/src/main/res/drawable/ic_lock.xml" value="0.3635" />
+        <entry key="..\:/Users/ahmet/AndroidStudioProjects/ecommerceapp/app/src/main/res/drawable/ic_login.xml" value="0.3505" />
         <entry key="..\:/Users/ahmet/AndroidStudioProjects/ecommerceapp/app/src/main/res/drawable/ic_mail.xml" value="0.33" />
         <entry key="..\:/Users/ahmet/AndroidStudioProjects/ecommerceapp/app/src/main/res/drawable/ic_mail_svgrepo_com.xml" value="0.3635" />
         <entry key="..\:/Users/ahmet/AndroidStudioProjects/ecommerceapp/app/src/main/res/drawable/ic_minus.xml" value="0.304" />
@@ -29,6 +30,7 @@
         <entry key="..\:/Users/ahmet/AndroidStudioProjects/ecommerceapp/app/src/main/res/drawable/ic_plus.xml" value="0.304" />
         <entry key="..\:/Users/ahmet/AndroidStudioProjects/ecommerceapp/app/src/main/res/drawable/ic_profile.xml" value="0.33" />
         <entry key="..\:/Users/ahmet/AndroidStudioProjects/ecommerceapp/app/src/main/res/drawable/ic_search.xml" value="0.33" />
+        <entry key="..\:/Users/ahmet/AndroidStudioProjects/ecommerceapp/app/src/main/res/drawable/ic_shop.xml" value="0.3505" />
         <entry key="..\:/Users/ahmet/AndroidStudioProjects/ecommerceapp/app/src/main/res/drawable/ic_shopping_bag.xml" value="0.33" />
         <entry key="..\:/Users/ahmet/AndroidStudioProjects/ecommerceapp/app/src/main/res/drawable/product_quantity_container.xml" value="0.304" />
         <entry key="..\:/Users/ahmet/AndroidStudioProjects/ecommerceapp/app/src/main/res/drawable/product_quantity_container_bottom_corners.xml" value="0.304" />
@@ -65,8 +67,8 @@
         <entry key="..\:/Users/ahmet/AndroidStudioProjects/ecommerceapp/app/src/main/res/layout/fragment_favorite.xml" value="0.25" />
         <entry key="..\:/Users/ahmet/AndroidStudioProjects/ecommerceapp/app/src/main/res/layout/fragment_favorites.xml" value="0.3625" />
         <entry key="..\:/Users/ahmet/AndroidStudioProjects/ecommerceapp/app/src/main/res/layout/fragment_home.xml" value="0.33" />
-        <entry key="..\:/Users/ahmet/AndroidStudioProjects/ecommerceapp/app/src/main/res/layout/fragment_log_in.xml" value="0.33" />
-        <entry key="..\:/Users/ahmet/AndroidStudioProjects/ecommerceapp/app/src/main/res/layout/fragment_profile.xml" value="0.3625" />
+        <entry key="..\:/Users/ahmet/AndroidStudioProjects/ecommerceapp/app/src/main/res/layout/fragment_log_in.xml" value="0.5" />
+        <entry key="..\:/Users/ahmet/AndroidStudioProjects/ecommerceapp/app/src/main/res/layout/fragment_profile.xml" value="0.33" />
         <entry key="..\:/Users/ahmet/AndroidStudioProjects/ecommerceapp/app/src/main/res/layout/fragment_shopping.xml" value="0.3484375" />
         <entry key="..\:/Users/ahmet/AndroidStudioProjects/ecommerceapp/app/src/main/res/layout/fragment_sign_up.xml" value="0.3484375" />
         <entry key="..\:/Users/ahmet/AndroidStudioProjects/ecommerceapp/app/src/main/res/layout/progresbar.xml" value="0.3614583333333333" />

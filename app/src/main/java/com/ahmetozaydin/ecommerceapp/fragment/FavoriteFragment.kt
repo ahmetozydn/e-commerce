@@ -1,7 +1,9 @@
 package com.ahmetozaydin.ecommerceapp.fragment
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ahmetozaydin.ecommerceapp.adapter.CartAdapter
 import com.ahmetozaydin.ecommerceapp.adapter.FavoriteAdapter
+import com.ahmetozaydin.ecommerceapp.data.CartDatabase
 import com.ahmetozaydin.ecommerceapp.data.Favorite
 import com.ahmetozaydin.ecommerceapp.data.FavoriteDatabase
 import com.ahmetozaydin.ecommerceapp.databinding.FragmentFavoriteBinding
@@ -29,6 +32,7 @@ class FavoriteFragment : Fragment() , FavoriteAdapter.Listener{
     private var favoriteList = ArrayList<Favorite>()
     private var favoriteDatabase: FavoriteDatabase? = null
     private lateinit var viewModel: FavoriteFragmentViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,8 +53,30 @@ class FavoriteFragment : Fragment() , FavoriteAdapter.Listener{
                 val buttons = ArrayList<UnderlayButton>()
                 val deleteButton = deleteButton(position)
                 val addToCartButton = addToCartButton(position)
-                buttons.add(deleteButton)
-                buttons.add(addToCartButton)
+
+                runBlocking {
+                    Log.i(TAG, "instantiateUnderlayButton: inside runblocking")
+                    CoroutineScope(Dispatchers.IO).launch {
+                        if(position != -1){
+
+                        }
+                        val isAddedToCart = favoriteAdapter?.getItemInfo(position)?.let {
+                            CartDatabase.invoke(context = requireContext()).cartDao().searchEntity(it)
+                        }
+
+                        Log.i(TAG, "instantiateUnderlayButton: the position is $position")
+
+                        if(isAddedToCart !=null){
+                            Log.i(TAG, "instantiateUnderlayButton: $isAddedToCart")
+                            buttons.add(deleteButton)
+                        }else{
+                            Log.i(TAG, "instantiateUnderlayButton: $isAddedToCart")
+                            buttons.add(deleteButton)
+                            buttons.add(addToCartButton)
+                        }
+                        Log.i(TAG, "coroutine scope: $isAddedToCart ")
+                    }
+                }
                 return buttons
             }
         })
@@ -82,6 +108,11 @@ class FavoriteFragment : Fragment() , FavoriteAdapter.Listener{
                 binding.emptyList.visibility = View.INVISIBLE
             }
         })
+        viewModel.product.observe(viewLifecycleOwner, Observer {
+            it.let {
+
+            }
+        })
     }
 
     private fun deleteButton(position: Int): SwipeHelper.UnderlayButton {
@@ -109,10 +140,10 @@ class FavoriteFragment : Fragment() , FavoriteAdapter.Listener{
             android.R.color.holo_blue_light,
             object : SwipeHelper.UnderlayButtonClickListener {
                 override fun onClick() {
-                    val idOfProduct = favoriteAdapter?.getItemInfo(position)
-                    if (idOfProduct != null) {
-                        viewModel.addItemToRoom(idOfProduct, requireContext())
-                    }
+                    val id = favoriteAdapter!!.getItemInfo(position)
+                        if (id != null) {
+                            viewModel.addToCart(requireContext(), id = id)
+                        }
                 }
             })
     }

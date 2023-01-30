@@ -38,4 +38,7 @@ interface CartDao {
     @Query("SELECT isAddedToCart FROM cart WHERE id = :id")
     fun isAddedToCart(id : Int) : Boolean
 
+    @Query("SELECT id FROM cart WHERE id = :id")
+    suspend fun searchEntity(id : Int) : Int?
+
 }
